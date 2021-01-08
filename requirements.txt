@@ -1,1 +1,12 @@
+Networkx
+pip install networkx
+
+Matplotlib
+pip install matplotlib
+
+Bokeh
+pip install bokeh
+
+VSC extensions
+UMLet
 

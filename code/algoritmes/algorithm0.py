@@ -17,7 +17,5 @@ def algorithm0(amount):
     # continue untill traject.total_minutes > 2 hours
 
     # delete last added station (so that total_minutes < 2 hours)
-
-
-
+    
     pass
