@@ -3,6 +3,7 @@ from code.classes.traject import Traject
 import networkx as nx
 from matplotlib import pyplot
 import matplotlib.pyplot as plt
+import pandas as pd
 
 import os
 
@@ -11,7 +12,6 @@ class Map():
     def __init__(self, stations):
         self.trajects = []
         self.stations = stations
-        self.counter = 0
         pass
 
     # adds traject object to trajects list
@@ -37,27 +37,61 @@ class Map():
 
         # experimental code from stack overflow, not sure if this works yet
         G = nx.Graph()
+        edges = []
+        nodes = []
 
         for key in self.stations:
             station = self.stations[key]
-            
+            connections = station.get_connections()
+
             station_coordinates = station.get_coordinates()
 
-            G.add_node(station.name, pos=(station_coordinates[0], station_coordinates[1]))
+            if station not in nodes:
+                G.add_node(station.name, pos=(float(station_coordinates[1]), float(station_coordinates[0])))
+                nodes.append(station)
 
-            # G.add_edge_from(station1, station2)
+                for connection in connections:
+                    if connection not in nodes:
+                        print(connection)
+                        G.add_edge(station.name, connection)
 
-        # pyplot.gca().invert_yaxis()
-        # pyplot.gca().invert_xaxis()
+            #print(f'Station: {station}. Connections:')
+            # for connection in connections:
+                # print(f'{connection} Time: {connections[connection]}')
+                # edge = (station.name, connection)
 
-        nx.draw(G, nx.get_node_attributes(G, 'pos'), with_labels=True, node_size=1000, node_color='blue', font_size=8, font_weight='bold')
+                # edges.append(edge)
 
+                # print(station.name)
+                # print(connection)
+                # G.add_edge(station.name, connection, weight=10)
+
+        # G.add_edges_from(edges)
+        # G.add_edge_from(station1, station2)
+
+        # print(nx.get_node_attributes(G, 'pos'))
+        # nx.draw(G, nx.get_node_attributes(G, 'pos'), with_labels=True, node_size=200, node_color='grey', font_size=8, font_weight='bold')
         # plt.tight_layout()
 
-        plt.savefig(f'code/visualisatie/tests/Graph_{self.counter}.png', format="PNG")
+        # nx.draw(G)
+        # plt.savefig(f'code/visualisatie/tests/Graph_3.png', format="PNG")
+        # plt.show()
+
+
+        # pos = nx.get_node_attributes(G, 'pos')
+
+        weight = nx.get_edge_attributes(G, 'weight')
+        pos = nx.spring_layout(G)
+        
+        nx.draw_networkx(G, pos)
+        nx.draw_networkx_edges(G, pos)
+
+        # pyplot.gca().invert_yaxis()
+        pyplot.gca().invert_xaxis()
+
+        plt.savefig(f'code/visualisatie/tests/Graph_7.png', format="PNG")
         plt.show()
 
-        self.counter += 1
         pass
     
     # calculates p value (ratio stations covered by trajects to total amount stations)

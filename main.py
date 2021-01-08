@@ -81,7 +81,6 @@ if __name__ == '__main__':
     load("HL")
 
     new_map = Map(load.stations)
-
     new_map.visualise()
 
     # algorithm0(7)
