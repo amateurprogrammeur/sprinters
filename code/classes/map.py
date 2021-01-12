@@ -5,6 +5,7 @@ from matplotlib import pyplot
 import matplotlib.pyplot as plt
 import pandas as pd
 
+
 import os
 
 class Map():
@@ -25,17 +26,16 @@ class Map():
 
     # makes visualisations of trajects data
     def visualise(self):
-        # make html file
+        
+        # opties: 
+        # elk traject andere kleur
+        # alleen verbindingen laten zien die in een traject zitten
+        # verbinding dikker maken als er een traject overheen gaat, hoe dikker hoe meer trajecten?
+        # 
+        # 2 trajecten die dezelfde verbinding nemen willen we naast elkaar laten zien
+        # tijden aangeven bij elke edge
 
-        # for each station, make node with station.get_coordinates()
 
-        # for each traject
-        #       for each station
-        #           create line between stations
-
-        # matplotlib?
-
-        # experimental code from stack overflow, not sure if this works yet
         G = nx.Graph()
         edges = []
         nodes = []
@@ -51,49 +51,22 @@ class Map():
                 nodes.append(station)
 
                 for connection in connections:
-                    if connection not in nodes:
-                        print(connection)
-                        G.add_edge(station.name, connection)
+                    G.add_edge(station.name, connection.name, edge_color='red')
 
-            #print(f'Station: {station}. Connections:')
-            # for connection in connections:
-                # print(f'{connection} Time: {connections[connection]}')
-                # edge = (station.name, connection)
+        color = nx.get_edge_attributes(G, 'edge_color')
+        pos = nx.get_node_attributes(G, 'pos')
 
-                # edges.append(edge)
+        # nx.draw(G, nx.get_node_attributes(G, 'pos'), with_labels=True, node_size=200, node_color='grey', font_size=8, font_weight='bold', edge_color='red')
 
-                # print(station.name)
-                # print(connection)
-                # G.add_edge(station.name, connection, weight=10)
+        nx.draw_networkx(G, pos, with_labels=True, node_size=200, node_color='grey', font_size=8, font_weight='bold')
+        nx.draw_networkx_edges(G, pos, color)
 
-        # G.add_edges_from(edges)
-        # G.add_edge_from(station1, station2)
-
-        # print(nx.get_node_attributes(G, 'pos'))
-        # nx.draw(G, nx.get_node_attributes(G, 'pos'), with_labels=True, node_size=200, node_color='grey', font_size=8, font_weight='bold')
-        # plt.tight_layout()
-
-        # nx.draw(G)
-        # plt.savefig(f'code/visualisatie/tests/Graph_3.png', format="PNG")
-        # plt.show()
-
-
-        # pos = nx.get_node_attributes(G, 'pos')
-
-        weight = nx.get_edge_attributes(G, 'weight')
-        pos = nx.spring_layout(G)
-        
-        nx.draw_networkx(G, pos)
-        nx.draw_networkx_edges(G, pos)
-
-        # pyplot.gca().invert_yaxis()
-        pyplot.gca().invert_xaxis()
-
-        plt.savefig(f'code/visualisatie/tests/Graph_7.png', format="PNG")
+        plt.savefig(f'code/visualisatie/tests/Graph_9.png', format="PNG")
         plt.show()
 
         pass
     
+
     # calculates p value (ratio stations covered by trajects to total amount stations)
     def get_p(self):
         stations = []

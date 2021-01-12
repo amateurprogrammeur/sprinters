@@ -5,18 +5,25 @@
 -Connections: {Connection : time}
 --
 station_name()
-add_connection()
+add_connection(station, time)
 get_connections()
-has_connection()
+has_connection(connection)
+add_coordinates(x, y)
+get_coordinates()
+
 </panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>0</x><y>10</y><w>210</w><h>190</h></coordinates><panel_attributes>Class Traject
 --
 Id: int
 Stations: [Station]
 Total_minutes: int
 --
-add_station()
+add_station(station, time)
 get_stations()
-has_station()
+remove_station(station, time)
+has_station(station)
+get_time()
+
+
 </panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>310</x><y>40</y><w>210</w><h>190</h></coordinates><panel_attributes>Class Map
 --
 Id: int
@@ -25,4 +32,8 @@ Trajects: [Traject]
 add_traject(traject)
 get_trajects()
 get_K()
+visualise()
+get_p()
+get_T()
+get_MIN()
 </panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>200</x><y>10</y><w>130</w><h>60</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>110;40;10;10</additional_attributes></element></diagram>

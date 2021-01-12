@@ -10,3 +10,8 @@ pip install bokeh
 VSC extensions
 UMLet
 
+Pandas
+pip install pandas
+
+
+
