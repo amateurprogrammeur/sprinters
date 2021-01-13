@@ -4,7 +4,8 @@ import networkx as nx
 from matplotlib import pyplot
 import matplotlib.pyplot as plt
 import pandas as pd
-
+import numpy as np
+import csv
 
 import os
 
@@ -61,10 +62,33 @@ class Map():
         nx.draw_networkx(G, pos, with_labels=True, node_size=200, node_color='grey', font_size=8, font_weight='bold')
         nx.draw_networkx_edges(G, pos, color)
 
-        plt.savefig(f'code/visualisatie/tests/Graph_9.png', format="PNG")
+        plt.savefig(f'code/output/graphs/Graph_10.png', format="PNG")
         plt.show()
 
         pass
+
+    def save_map(self, name):
+        
+        with open(f'code/output/csvs/{name}.csv', 'w', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerow(["train", "stations"])
+            counter = 1
+            for traject in self.trajects:
+
+                station_list = traject.get_stations()
+                # print(f"train_{counter}", f"{station_list}")
+                writer.writerow([f"train_{counter}", f"{station_list}"])
+                counter += 1
+
+            # print("score", self.get_K())
+            writer.writerow(["score", self.get_K()])
+
+# train,stations
+# train_1,"[Beverwijk, Castricum, Alkmaar, Hoorn, Zaandam]"
+# train_2,"[Amsterdam Sloterdijk, Amsterdam Centraal, Amsterdam Amstel, Amsterdam Zuid, Schiphol Airport]"
+# train_3,"[Rotterdam Alexander, Gouda, Alphen a/d Rijn, Leiden Centraal, Schiphol Airport, Amsterdam Zuid]"
+# score,3819.7142857142853
+        
     
 
     # calculates p value (ratio stations covered by trajects to total amount stations)
@@ -80,6 +104,7 @@ class Map():
         stations = list(dict.fromkeys(stations))
 
         p = len(stations) / len(self.stations)
+
         return p
 
 

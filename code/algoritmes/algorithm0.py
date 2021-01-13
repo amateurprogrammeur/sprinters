@@ -2,11 +2,11 @@ from code.classes.traject import Traject
 from code.classes.map import Map
 import random 
 
-def algorithm0(amount, stations):
+def algorithm0(stations, max_trajects, max_time):
 
     new_map = Map(stations)
 
-    for i in range(1):
+    for i in range(max_trajects):
 
         new_traject = Traject()
 
@@ -41,11 +41,11 @@ def algorithm0(amount, stations):
                     if station == list(connections.keys())[-1]:
                         x = False
 
-            if new_traject.get_time() > 120:
+            if new_traject.get_time() > max_time:
                 x = False
 
         print(f"TRAJECT: {new_traject.get_stations()} with TIME: {new_traject.get_time()}")
-        if new_traject.get_time() > 120:
+        if new_traject.get_time() > max_time:
             new_traject.remove_station(last_station, last_time)
         print(f"TRAJECT: {new_traject.get_stations()} with TIME: {new_traject.get_time()}")
 

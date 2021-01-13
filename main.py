@@ -79,13 +79,79 @@ def load(level):
 
 
 if __name__ == '__main__':
-    load("HL")
+
+    level = "x"
+
+    while level != "NL" and level != "HL":
+
+        level = input("Holland (HL) or Netherlands (NL)? \n")
+        level = level.upper()
+
+        if level == "NL":
+            load("NL")
+            trajects = 20
+            time = 180
+            new_K = 0
+            highest_K = 0
+            lowest_K = 99999
+
+            # new_map = algorithm1(load.stations, trajects, time)
+            # new_map.save_map("test")
+
+            for i in range(500000):
+
+                new_map = algorithm1(load.stations, trajects, time)
+                new_K = new_map.get_K()
+
+                if new_K > highest_K:
+                    highest_K = new_K
+                    highest_map = new_map
+                    print(highest_K)
+
+                if new_K < lowest_K:
+                    lowest_K = new_K
+                    lowest_map = new_map
+                    print(lowest_K)
+
+            highest_map.save_map("highest_K_500000_NL")
+            lowest_map.save_map("lowest_K_500000_NL")
+
+        elif level == "HL":
+            load("HL")
+            trajects = 7
+            time = 120
+            new_K = 0
+            highest_K = 0
+            lowest_K = 99999
+
+            # new_map = algorithm1(load.stations, trajects, time)
+            # new_map.save_map("test")
+
+            for i in range(1000000):
+
+                new_map = algorithm1(load.stations, trajects, time)
+                new_K = new_map.get_K()
+
+                if new_K > highest_K:
+                    highest_K = new_K
+                    highest_map = new_map
+                    print(highest_K)
+
+                if new_K < lowest_K:
+                    lowest_K = new_K
+                    lowest_map = new_map
+                    print(lowest_K)
+
+            highest_map.save_map("highest_K_1000000_HL")
+            lowest_map.save_map("lowest_K_1000000_HL")
+
+        else:
+            continue
 
     # algorithm0(7, load.stations)
-    # algorithm1(7, load.stations)
 
-    new_map = Map(load.stations)
-    new_map.visualise()
+    # new_map = Map(load.stations)
+    # new_map.visualise()
 
     
 

@@ -88,6 +88,17 @@ List of most important maps and files of the project:
 - ./docs: Contains designdocument
 - ./main.py contains the project itself
 
+### Changes
+The following changes where made: 
+- ConnectiesNationaal.csv: Time connections made integers instead of float numbers. 
+
+### To run 
+To run programm use python main.py
+Can change to HL for Noord en zuid holland
+    - In main.py (load function)
+Can change to NL for data of whole of Netherlands 
+    - Change 20 stations in main.py (load function) instead of 7 and minutes in map.py
+
 ### Authors
 Celine Diks
 Chris Bernsen

@@ -1,0 +1,9 @@
+train,stations
+train_1,"[Castricum, Beverwijk, Zaandam, Hoorn, Alkmaar]"
+train_2,"[Beverwijk, Castricum, Zaandam, Hoorn, Alkmaar, Den Helder]"
+train_3,"[Castricum, Beverwijk, Zaandam, Hoorn, Alkmaar]"
+train_4,"[Castricum, Zaandam, Hoorn, Alkmaar, Den Helder]"
+train_5,"[Zaandam, Castricum, Alkmaar, Hoorn]"
+train_6,"[Alkmaar, Den Helder]"
+train_7,"[Zaandam, Hoorn, Alkmaar, Den Helder]"
+score,1475.272727272727
