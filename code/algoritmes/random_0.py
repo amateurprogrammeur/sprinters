@@ -2,7 +2,12 @@ from code.classes.traject import Traject
 from code.classes.map import Map
 import random 
 
-def algorithm0(stations, max_trajects, max_time):
+def random_0(stations, max_trajects, max_time):
+    """
+    Takes first station and creates a random traject.
+    Expects stations, maximum amount of trajects and maximum amount of time.
+    Returns Boolean True or False.
+    """
 
     new_map = Map(stations)
 
@@ -29,9 +34,9 @@ def algorithm0(stations, max_trajects, max_time):
                 # print(f"possible connections: {connections}")
                 # print(f"KIJKHIERNAAR {station}")
                 if not new_traject.has_station(station):
-                    time = int(connections[station])
+                    time = connections[station]
                     last_station = station
-                    last_time = int(connections[station])
+                    last_time = connections[station]
                     connections = last_station.get_connections()
                     new_traject.add_station(station, time)
 

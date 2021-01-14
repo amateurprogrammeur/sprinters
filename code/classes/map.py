@@ -26,7 +26,7 @@ class Map():
         return self.trajects
 
     # makes visualisations of trajects data
-    def visualise(self):
+    def visualise(self, name):
         
         # opties: 
         # elk traject andere kleur
@@ -62,7 +62,7 @@ class Map():
         nx.draw_networkx(G, pos, with_labels=True, node_size=200, node_color='grey', font_size=8, font_weight='bold')
         nx.draw_networkx_edges(G, pos, color)
 
-        plt.savefig(f'code/output/graphs/Graph_10.png', format="PNG")
+        plt.savefig(f'code/output/graphs/{name}.png', format="PNG")
         plt.show()
 
         pass
@@ -93,17 +93,21 @@ class Map():
 
     # calculates p value (ratio stations covered by trajects to total amount stations)
     def get_p(self):
-        stations = []
+        covered_stations = []
 
         #save stations from trajects in stations list (runs 7x)
         for traject in self.trajects:
             traject_stations = traject.get_stations()
-            stations.extend(traject_stations)
+            for station in traject_stations:
+                if station.name not in covered_stations:
+                    covered_stations.append(station.name)
 
-        #remove duplicates
-        stations = list(dict.fromkeys(stations))
+        # print(f"covered stations: {covered_stations}")
 
-        p = len(stations) / len(self.stations)
+        p = len(covered_stations) / len(self.stations)
+        
+
+        # print(f"p: {len(covered_stations)} / {len(self.stations)} = {p}")
 
         return p
 
@@ -111,6 +115,9 @@ class Map():
     # calculates T value (total amount of trajects)
     def get_T(self):
         T = len(self.trajects)
+
+        # print(f"T: {T}")
+
         return T
 
 
@@ -123,8 +130,9 @@ class Map():
         for traject in self.trajects:
             Min += traject.total_minutes
 
+        # print(f"Min: {Min}")
+
         return Min
-        pass
 
 
     # calculates K value (quality score of all trajects)

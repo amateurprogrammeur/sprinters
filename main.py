@@ -1,8 +1,9 @@
 from code.classes.station import Station
 from code.classes.traject import Traject
 from code.classes.map import Map
-from code.algoritmes.algorithm0 import *
-from code.algoritmes.algorithm1 import *
+from code.algoritmes.random_0 import *
+from code.algoritmes.random_1 import *
+from code.algoritmes.prims import *
 
 from csv import reader
 import csv
@@ -38,7 +39,7 @@ def load(level):
 
                 station_1 = row[0]
                 station_2 = row[1]
-                time = row[2]
+                time = int(row[2])
 
                 # creates new station object if station of this name does not already exist
                 if station_1 not in load.stations:
@@ -80,80 +81,90 @@ def load(level):
 
 if __name__ == '__main__':
 
-    level = "x"
+    level = ""
 
     while level != "NL" and level != "HL":
-
         level = input("Holland (HL) or Netherlands (NL)? \n")
         level = level.upper()
 
         if level == "NL":
-            load("NL")
             trajects = 20
             time = 180
-            new_K = 0
-            highest_K = 0
-            lowest_K = 99999
-
-            # new_map = algorithm1(load.stations, trajects, time)
-            # new_map.save_map("test")
-
-            for i in range(500000):
-
-                new_map = algorithm1(load.stations, trajects, time)
-                new_K = new_map.get_K()
-
-                if new_K > highest_K:
-                    highest_K = new_K
-                    highest_map = new_map
-                    print(highest_K)
-
-                if new_K < lowest_K:
-                    lowest_K = new_K
-                    lowest_map = new_map
-                    print(lowest_K)
-
-            highest_map.save_map("highest_K_500000_NL")
-            lowest_map.save_map("lowest_K_500000_NL")
 
         elif level == "HL":
-            load("HL")
             trajects = 7
             time = 120
-            new_K = 0
-            highest_K = 0
-            lowest_K = 99999
-
-            # new_map = algorithm1(load.stations, trajects, time)
-            # new_map.save_map("test")
-
-            for i in range(1000000):
-
-                new_map = algorithm1(load.stations, trajects, time)
-                new_K = new_map.get_K()
-
-                if new_K > highest_K:
-                    highest_K = new_K
-                    highest_map = new_map
-                    print(highest_K)
-
-                if new_K < lowest_K:
-                    lowest_K = new_K
-                    lowest_map = new_map
-                    print(lowest_K)
-
-            highest_map.save_map("highest_K_1000000_HL")
-            lowest_map.save_map("lowest_K_1000000_HL")
-
         else:
             continue
 
-    # algorithm0(7, load.stations)
+        load(level)
 
-    # new_map = Map(load.stations)
-    # new_map.visualise()
+        algorithm = ""
+        while algorithm != "random" and algorithm != "prims":
+            algorithm = input("Choose algorithm: Random or Prims? \n")
+            algorithm = algorithm.lower()
 
-    
+            if algorithm == "random":
+                new_K = 0
+                highest_K = 0
+                lowest_K = 99999
+
+                iterations = 0
+                while iterations < 1:
+                    iterations = int(input("How many iterations? \n"))
+
+                    for i in range(iterations):
+                        new_map = random_1(load.stations, trajects, time)
+                        new_K = new_map.get_K()
+
+                        if new_K > highest_K:
+                            highest_K = new_K
+                            highest_map = new_map
+                            print(highest_K)
+
+                        elif new_K < lowest_K:
+                            lowest_K = new_K
+                            lowest_map = new_map
+                            print(lowest_K)
+
+                    highest_map.save_map(f"{algorithm}_{level}_{iterations}_highest_K")
+                    lowest_map.save_map(f"{algorithm}_{level}_{iterations}_lowest_K")
+
+            elif algorithm == "prims":
+                
+                prims_tree = prims(load.stations)
+
+                new_K = 0
+                highest_K = 0
+                lowest_K = 99999
+
+                iterations = 0
+                while iterations < 1:
+                    iterations = int(input("How many iterations? \n"))
+
+                    for i in range(iterations):
+                        new_map = random_1(prims_tree, trajects, time)
+                        new_K = new_map.get_K()
+
+                        if new_K > highest_K:
+                            highest_K = new_K
+                            highest_map = new_map
+                            print(f"Highest K: {highest_K}")
+
+                        elif new_K < lowest_K:
+                            lowest_K = new_K
+                            lowest_map = new_map
+                            print(f"Lowest K: {lowest_K}")
+
+                    highest_map.save_map(f"{algorithm}_{level}_{iterations}_highest_K")
+                    lowest_map.save_map(f"{algorithm}_{level}_{iterations}_lowest_K")
+
+            else:
+                continue
+
+
+
+        
 
     
 

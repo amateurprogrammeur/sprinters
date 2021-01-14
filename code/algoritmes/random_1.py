@@ -2,7 +2,12 @@ from code.classes.traject import Traject
 from code.classes.map import Map
 import random 
 
-def algorithm1(stations, max_trajects, max_time):
+def random_1(stations, max_trajects, max_time):
+    """
+    Takes a random station and creates a random traject.
+    Expects stations, maximum amount of trajects and maximum amount of time.
+    Returns a new map with created trajectories.
+    """
 
     new_map = Map(stations)
 
@@ -43,9 +48,9 @@ def algorithm1(stations, max_trajects, max_time):
                 else:
                     continue
             else:
-                time = int(connections[station])
+                time = connections[station]
                 last_station = station
-                last_time = int(connections[station])
+                last_time = connections[station]
                 connections = last_station.get_connections()
                 new_traject.add_station(station, time)
 
