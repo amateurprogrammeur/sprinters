@@ -2,10 +2,13 @@ from code.classes.traject import Traject
 
 import networkx as nx
 from matplotlib import pyplot
+import matplotlib.colors as mcolors
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 import csv
+
+import random
 
 import os
 
@@ -14,6 +17,10 @@ class Map():
     def __init__(self, stations):
         self.trajects = []
         self.stations = stations
+
+        self.colours = ['red', 'green', 'blue', 'yellow', 'purple', 'orange', 'black', 'grey', 'brown', 'pink'
+            'olive', 'lightcoral', 'maroon', 'aqua', 'plum', 'skyblue', 'chocolate', 'lime', 'slategrey',
+            'navy', 'papayawhip', 'hotpink']
         pass
 
     # adds traject object to trajects list
@@ -59,37 +66,82 @@ class Map():
 
         # nx.draw(G, nx.get_node_attributes(G, 'pos'), with_labels=True, node_size=200, node_color='grey', font_size=8, font_weight='bold', edge_color='red')
 
-        nx.draw_networkx(G, pos, with_labels=True, node_size=200, node_color='grey', font_size=8, font_weight='bold')
-        nx.draw_networkx_edges(G, pos, color)
+        nx.draw_networkx(G, pos, with_labels=True, node_size=40, node_color='grey', font_size=4, font_weight='bold')
+        nx.draw_networkx_edges(G, pos)
 
         plt.savefig(f'code/output/graphs/{name}.png', format="PNG")
         plt.show()
 
         pass
 
-    def save_map(self, name):
+    def visualise_trajects(self, name):
+
+        # print(colours)
         
+        G = nx.Graph()
+        edges = []
+        nodes = []
+
+        for key in self.stations:
+            station = self.stations[key]
+
+            station_coordinates = station.get_coordinates()
+
+            if station not in nodes:
+                G.add_node(station.name, pos=(float(station_coordinates[1]), float(station_coordinates[0])))
+                nodes.append(station)
+
+        counter = 0
+        for traject in self.trajects:
+            new_colour = self.colours.pop(0)
+            counter += 1
+
+            connections = traject.get_stations()
+            for i in range(len(connections)-1):
+                station = connections[i]
+                connection = connections[i+1]
+
+                G.add_edge(station.name, connection.name, edge_labels=counter, edge_color=new_colour)
+
+        color = nx.get_edge_attributes(G, 'edge_color')
+        labels = nx.get_edge_attributes(G, 'edge_labels')
+        pos = nx.get_node_attributes(G, 'pos')
+
+        # nx.draw(G, nx.get_node_attributes(G, 'pos'), nx.get_edge_attributes(G, 'color'), with_labels=True, node_size=200, node_color='grey', font_size=8, font_weight='bold', edge_color = 'red')
+
+        nx.draw_networkx(G, pos, with_labels=True, node_size=40, node_color='grey', font_size=4, font_weight='bold')
+        # nx.draw_networkx_edge_labels(G, pos, edge_labels=labels)
+        nx.draw_networkx_edges(G, pos, color)
+
+        plt.savefig(f'code/output/graphs/{name}.png', format="PNG")
+        plt.show()
+
+
+
+    def save_map(self, name):
+    
         with open(f'code/output/csvs/{name}.csv', 'w', newline='') as file:
             writer = csv.writer(file)
             writer.writerow(["train", "stations"])
             counter = 1
             for traject in self.trajects:
-
                 station_list = traject.get_stations()
                 # print(f"train_{counter}", f"{station_list}")
                 writer.writerow([f"train_{counter}", f"{station_list}"])
-                counter += 1
 
             # print("score", self.get_K())
             writer.writerow(["score", self.get_K()])
 
-# train,stations
-# train_1,"[Beverwijk, Castricum, Alkmaar, Hoorn, Zaandam]"
-# train_2,"[Amsterdam Sloterdijk, Amsterdam Centraal, Amsterdam Amstel, Amsterdam Zuid, Schiphol Airport]"
-# train_3,"[Rotterdam Alexander, Gouda, Alphen a/d Rijn, Leiden Centraal, Schiphol Airport, Amsterdam Zuid]"
-# score,3819.7142857142853
-        
-    
+
+
+
+    # calculates p value (ratio stations covered by trajects to total amount stations)
+    def get_p(self):
+        covered_stations = []
+
+    # calculates p value (ratio stations covered by trajects to total amount stations)
+    def get_p(self):
+        covered_stations = []
 
     # calculates p value (ratio stations covered by trajects to total amount stations)
     def get_p(self):

@@ -2,23 +2,32 @@ from code.classes.traject import Traject
 from code.classes.map import Map
 import random 
 
-def random_1(stations, max_trajects, max_time):
+class random_1():
     """
     Takes a random station and creates a random traject.
     Expects stations, maximum amount of trajects and maximum amount of time.
     Returns a new map with created trajectories.
     """
 
-    new_map = Map(stations)
+    def __init__(self, stations, max_trajects, max_time):
+        self.stations = stations
+        self.max_trajects = max_trajects
+        self.max_time = max_time
 
-    for i in range(max_trajects):
+        pass
+
+
+    def make_random_traject(self):
+        """
+        Creates a random traject object and returns it.
+        """
 
         new_traject = Traject()
 
-        # print(random.choice(list(stations.values())))
+        # print(random.choice(list(self.stations.values())))
         
         # add random station to traject
-        random_station = random.choice(list(stations.values()))
+        random_station = random.choice(list(self.stations.values()))
         # print(f"random station = {random_station}")
 
         new_traject.add_station(random_station, 0)
@@ -31,18 +40,14 @@ def random_1(stations, max_trajects, max_time):
         while x == True:
             # check if connection is already in traject
             station = random.choice(list(connections.keys()))
-            # print(station)
 
             if new_traject.has_station(station):
-                # hier gaat het waarschijnlijk fout
                 list_1 = list(connections.keys())
                 list_2 = new_traject.get_stations()
                 
-                # print(list_1)
-                # print(list_2)
 
                 check = all(item in list_2 for item in list_1)
-                # print(check)
+
                 if check:
                     x = False
                 else:
@@ -54,24 +59,33 @@ def random_1(stations, max_trajects, max_time):
                 connections = last_station.get_connections()
                 new_traject.add_station(station, time)
 
-                # print(f"new connection = {station} with time = {time}")
 
-                if new_traject.get_time() > max_time:
+                if new_traject.get_time() > self.max_time:
                     x = False
 
-
-        # print(f"TRAJECT: {new_traject.get_stations()} with TIME: {new_traject.get_time()}")
-        if new_traject.get_time() > max_time:
+        if new_traject.get_time() > self.max_time:
             new_traject.remove_station(last_station, last_time)
-        # print(f"TRAJECT: {new_traject.get_stations()} with TIME: {new_traject.get_time()}")
 
-        new_map.add_traject(new_traject)
+        return new_traject
 
-    # print(new_map.get_K())
 
-    return new_map
+    def run(self):
+        """
+        Runs the random algorithm.
+        Returns a map as visualisation.
+        """
+        
+        new_map = Map(self.stations)
 
-        # delete last added station (so that total_minutes < 2 hours)
+        for i in range(self.max_trajects):
+
+            new_traject = self.make_random_traject()
+
+            new_map.add_traject(new_traject)
+
+        # print(new_map.get_K())
+
+        return new_map
 
 
 

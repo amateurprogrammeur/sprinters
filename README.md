@@ -99,7 +99,9 @@ Can change to HL for Noord en zuid holland
 Can change to NL for data of whole of Netherlands 
     - Change 20 stations in main.py (load function) instead of 7 and minutes in map.py
 
+### How we use the algorithms
+uitleggen op welke manier de algoritmes door elkaar te gebruiken zijn
 ### Authors
-Celine Diks
-Chris Bernsen
-Julia Ham
+- Celine Diks
+- Chris Bernsen
+- Julia Ham

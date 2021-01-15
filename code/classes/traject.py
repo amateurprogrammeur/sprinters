@@ -1,6 +1,8 @@
 class Traject():
 
     def __init__(self):
+
+        # stations = [ station_object ]
         self.stations = []
         self.total_minutes = 0
         pass
