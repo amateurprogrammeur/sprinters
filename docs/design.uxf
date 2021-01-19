@@ -27,9 +27,11 @@ get_time()
 Trajects: [Traject]
 --
 add_traject(traject)
+add_traject_list(traject_list)
 get_trajects()
 get_K()
 visualise()
+visualise_trajects()
 get_p()
 get_T()
 get_MIN()
@@ -40,15 +42,30 @@ Prims_tree: {}
 --
 make_tree()</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>470</x><y>300</y><w>210</w><h>190</h></coordinates><panel_attributes>Class Hillclimber
 --
-station_tree: stations
-map
+station_tree = stations
+trajects = initial_map.get_trajects
+solution = int(initial_map.get_K
+max_trajects = max_trajects
+max_time = max_time
 --
+-mutate_traject()
+-delete_traject()
 -mutate()
 -check_solution()
--run()
+-run(iterations)
 </panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>690</x><y>300</y><w>210</w><h>190</h></coordinates><panel_attributes>Class Random_1
 --
+stations = stations
+max_trajects = max_trajects
+max_time = max_time
+--
+make_random_traject()
 run()
 
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>350</x><y>260</y><w>460</w><h>30</h></coordinates><panel_attributes>Algorithms</panel_attributes><additional_attributes></additional_attributes></element></diagram>
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>350</x><y>260</y><w>460</w><h>30</h></coordinates><panel_attributes>Algorithms</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>368</x><y>509</y><w>210</w><h>190</h></coordinates><panel_attributes>Class Kruskals
+--
+Stations: Station()
+Kruskals_tree: {}
+--
+make_tree()</panel_attributes><additional_attributes></additional_attributes></element></diagram>

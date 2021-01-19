@@ -7,6 +7,9 @@ import copy
 import random
 
 class Hillclimber():
+    """
+    Class for Hill Climber algorithm.
+    """
 
     def __init__(self, stations, initial_map, max_trajects, max_time):
 
@@ -23,6 +26,11 @@ class Hillclimber():
         pass
 
     def mutate_traject(self):
+        """
+        Deletes traject when K value is higher in that case.
+        Creates a new traject object.
+        Returns the updates traject object.
+        """
 
         random = random_1(self.station_tree, self.max_trajects, self.max_time)
         new_traject = random.make_random_traject()
@@ -30,11 +38,30 @@ class Hillclimber():
         return new_traject
 
     def delete_traject(self):
-        pass
+        """
+        Deletes whole traject if K value is higher in that case.
+        Returns Boolean True if succesfull.
+        """
+        for i in range(len(self.trajects)-1):
+            old_traject = self.trajects.pop(0)
+
+            new_solution = self.check_solution()
+
+            if new_solution > self.solution:
+                self.solution = new_solution
+                print(f"Hillclimber: highest_K {new_solution}")
+            else:
+                self.trajects.append(old_traject)
+                continue
+        return True
+
 
     def mutate(self):
-
-        for i in range(self.max_trajects):
+        """
+        Mutates a traject and checks if K value increases.
+        Returns True if succesfull.
+        """
+        for i in range(len(self.trajects)-1):
             old_traject = self.trajects[i]
 
             self.trajects[i] = self.mutate_traject()
@@ -51,18 +78,26 @@ class Hillclimber():
         return True
 
     def check_solution(self):
-
+        """
+        Checks if K value is higher with new traject list.
+        Returns the map with the highest K value.
+        """
         new_map = Map(self.station_tree)
-        for traject in self.trajects:
-            new_map.add_traject(traject)
+        new_map.add_traject_list(self.trajects)
 
         return new_map.get_K()
 
     def run(self, iterations):
+        """
+        Runs the Hill Climber algorithm as many times as the user wants.
+        Expects an integer as iterations.
+        Returns a map as visualisation.
+        """
         # for traject in self.trajects:
         #     print(f"before mutate: {traject.get_stations()}")
 
         for i in range(iterations):
+            self.delete_traject()
             self.mutate()
 
         # for traject in self.trajects:

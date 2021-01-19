@@ -19,7 +19,8 @@ class prims():
 
     def make_tree(self):
         """
-        Creates tree with shortest connections and returns it.
+        Creates tree with shortest connections.
+        Returns dictionary as the created tree.
         """
 
         # list [station_name]

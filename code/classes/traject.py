@@ -1,5 +1,8 @@
 class Traject():
-
+    """
+    Class for a traject made of station objects.
+    """
+        
     def __init__(self):
 
         # stations = [ station_object ]
@@ -8,35 +11,51 @@ class Traject():
         pass
 
 
-    # add station object to stations list and updates total_minutes
     def add_station(self, station, time):
+        """
+        Adds a station object to the stations list.
+        Updates the total amount of minutes in a traject object.
+        Expects a station object and an integer as time.
+        """
         self.stations.append(station)
 
         self.total_minutes += time
 
 
-    # returns list of stations
     def get_stations(self):
+        """
+        Returns a list of station object as a traject object.
+        """
         return self.stations
 
 
-    # removes station from traject if possible
     def remove_station(self, station, time):
+        """
+        Removes a station from the traject object if possible.
+        Expects an object as station and an integer as time.
+        Returns boolean True if succesfull, else False.
+        """
         if station in self.stations:
             self.stations.remove(station)
             self.total_minutes -= time
             return True
-        else:
-            return False
+        return False
 
 
-    # returns whether traject has station or not
     def has_station(self, station):
+        """
+        Checks whether traject has a station object already.
+        Expects an object as station.
+        Returns boolean True if traject object has station, else False.
+        """
         if station in self.stations:
             return True
-        else:
-            return False
+        return False
 
 
     def get_time(self):
+        """
+        Retrieves total amount of minutes of traject object.
+        Returns itself.
+        """
         return self.total_minutes

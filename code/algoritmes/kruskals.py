@@ -7,7 +7,9 @@ import operator
 
 
 class kruskals():
-
+    """
+    Class for Kruskals algorithm.
+    """
     def __init__(self, stations):
         
         # dict { station_name : station_object }
@@ -15,7 +17,10 @@ class kruskals():
         self.kruskals_tree = {}
 
     def make_tree(self):
-
+        """
+        Creates a tree with station objects to choose from.
+        Returns a dictionary as the tree.
+        """
         # list [ station_name ]
         visited = []
 

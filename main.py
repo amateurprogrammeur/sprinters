@@ -131,9 +131,11 @@ if __name__ == '__main__':
                         elif new_K < lowest_K:
                             lowest_K = new_K
                             lowest_map = new_map
-                            print(f"lowest_K: {lowest_K}")
+                            # print(f"lowest_K: {lowest_K}")
 
-                    lowest_map.visualise_trajects("Random_Trajects")
+                    print(f"Random: Highest_K: {highest_K}")
+                    highest_map.save_map(f"{algorithm}_{level}_{iterations}_hillclimber_highest_K")
+                    highest_map.visualise_trajects(f"Random_Trajects_{iterations}")
 
                 question = ""
                 while question != "y" and question != "n":
@@ -143,11 +145,11 @@ if __name__ == '__main__':
                         iterations = 0
                         while iterations < 1:
                             iterations = int(input("How many iterations? \n"))
-                            hillclimber = Hillclimber(load.stations, lowest_map, trajects, time)
+                            hillclimber = Hillclimber(load.stations, highest_map, trajects, time)
                             new_map = hillclimber.run(iterations)
 
                             new_map.save_map(f"{algorithm}_{level}_{iterations}_hillclimber_highest_K")
-                            new_map.visualise_trajects("Random_Hillclimber_Trajects")
+                            new_map.visualise_trajects(f"Random_Hillclimber_Trajects_{iterations}")
 
                     # highest_map.save_map(f"{algorithm}_{level}_{iterations}_highest_K")
                     # lowest_map.save_map(f"{algorithm}_{level}_{iterations}_lowest_K")
@@ -179,7 +181,8 @@ if __name__ == '__main__':
                             lowest_map = new_map
                             # print(f"Lowest K: {lowest_K}")
 
-                    # highest_map.save_map(f"{algorithm}_{level}_{iterations}_highest_K")
+                    highest_map.save_map(f"{algorithm}_{level}_{iterations}_highest_K")
+                    highest_map.visualise_trajects(f"Prim_Random_Trajects_{iterations}")
                     # lowest_map.save_map(f"{algorithm}_{level}_{iterations}_lowest_K")
 
                 print(f"Random: Highest_K: {highest_K}")
@@ -191,11 +194,14 @@ if __name__ == '__main__':
                     question = input("Apply hillclimber? [y/n] \n")
 
                     if question == "y":
-                        hillclimber = Hillclimber(prims_tree, highest_map, trajects, time)
-                        new_map = hillclimber.run(iterations)
+                        iterations = 0
+                        while iterations < 1:
+                            iterations = int(input("How many iterations? \n"))
+                            hillclimber = Hillclimber(prims_tree, highest_map, trajects, time)
+                            new_map = hillclimber.run(iterations)
 
-                        new_map.save_map(f"{algorithm}_{level}_{iterations}_hillclimber_highest_K")
-                        new_map.visualise_trajects("Prim_Random_Hillclimber_Trajects")
+                            new_map.save_map(f"{algorithm}_{level}_{iterations}_hillclimber_highest_K")
+                            new_map.visualise_trajects(f"Prim_Random_Hillclimber_Trajects_{iterations}")
 
                    
 

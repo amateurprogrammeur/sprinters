@@ -38,7 +38,7 @@ Where K is the quality of the trajectory management, p the fraction of the used 
 
 Again, make a Trajectory management for North- and South-Holland with a maximum of seven trajectories within a timeframe of two hours, now try to get K as high as possible.
 
-### Assignement 2: Netherland
+### Assignement 2: Netherlands
 
 Third question to anwser:
 3. Are you ready for something bigger? We're going to work on The Netherlands as a whole now. Here, you'll find the document with connections and the document with intercity stations for The Netherlands, again with their x and y coordinates. 
