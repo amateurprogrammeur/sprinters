@@ -1,7 +1,11 @@
+# Celine Diks, Chris Bernsen & Julia Ham
+
+# classes
 from code.classes.traject import Traject
 from code.classes.map import Map
 from code.classes.station import Station
 
+# libraries
 import random
 import operator
 

@@ -1,8 +1,12 @@
+# Celine Diks, Chris Bernsen & Julia Ham
+
+# classes
 from code.classes.traject import Traject
 from code.classes.map import Map
 from code.classes.station import Station
 from .random_1 import random_1
 
+# libraries
 import copy
 import random
 
@@ -31,7 +35,8 @@ class Hillclimber():
         Creates a new traject object.
         Returns the updates traject object.
         """
-
+        
+        # creates new random traject
         random = random_1(self.station_tree, self.max_trajects, self.max_time)
         new_traject = random.make_random_traject()
 
@@ -42,14 +47,19 @@ class Hillclimber():
         Deletes whole traject if K value is higher in that case.
         Returns Boolean True if succesfull.
         """
+
+        # iterates over all trajects
         for i in range(len(self.trajects)-1):
             old_traject = self.trajects.pop(0)
 
             new_solution = self.check_solution()
 
+            # checks and shows highest k value
             if new_solution > self.solution:
                 self.solution = new_solution
                 print(f"Hillclimber: highest_K {new_solution}")
+            
+            # adds old traject again if k value did not increase
             else:
                 self.trajects.append(old_traject)
                 continue
@@ -61,6 +71,7 @@ class Hillclimber():
         Mutates a traject and checks if K value increases.
         Returns True if succesfull.
         """
+        # iterates over all trajects
         for i in range(len(self.trajects)-1):
             old_traject = self.trajects[i]
 
@@ -68,10 +79,13 @@ class Hillclimber():
 
             new_solution = self.check_solution()
 
+            # checks and shows highest k value
             if new_solution > self.solution:
                 self.solution = new_solution
 
                 print(f"Hillclimber: highest_K {new_solution}")
+
+            # adds old traject again if k value did not increase
             else:
                 self.trajects[i] = old_traject
                 continue
@@ -93,16 +107,13 @@ class Hillclimber():
         Expects an integer as iterations.
         Returns a map as visualisation.
         """
-        # for traject in self.trajects:
-        #     print(f"before mutate: {traject.get_stations()}")
 
+        # runs hillclimber by mutating trajects if needed
         for i in range(iterations):
             self.delete_traject()
             self.mutate()
 
-        # for traject in self.trajects:
-        #     print(f"after mutate: {traject.get_stations()}")
-
+        # adds traject to new map visualisation
         new_map = Map(self.station_tree)
         for traject in self.trajects:
             new_map.add_traject(traject)
@@ -110,72 +121,3 @@ class Hillclimber():
         return new_map
 
 pass
-
-# PSEUDOCODE
-# kies random state
-# herhaal tot na x keer geen verbetering te zien:
-    # muteer
-    # if beter dan vorige staat
-        # state = nieuwe state
-    # else (if slechter)
-        # ga terug naar vorige state
-
-
-# class HillClimber(self):
-#     """
-#     The HillClimber class that changes a random node in the graph to a random valid value. Each improvement or
-#     equivalent solution is kept for the next iteration.
-#     """
-#     def __init__(self, graph, transmitters):
-#         if not graph.is_solution():
-#             raise Exception("HillClimber requires a complete solution.")
-
-#         self.graph = copy.deepcopy(graph)
-#         self.value = graph.calculate_value()
-
-#         self.transmitters = transmitters
-
-#     def mutate_single_node(self, new_graph):
-#         """
-#         Changes the value of a random node with a random valid value.
-#         """
-#         random_node = random.choice(list(new_graph.nodes.values()))
-#         available_transmitters = random_node.get_possibilities(self.transmitters)
-#         random_reconfigure_node(new_graph, random_node, available_transmitters)
-
-#     def mutate_graph(self, new_graph, number_of_nodes=1):
-#         """
-#         Changes the value of a number of nodes with a random valid value.
-#         """
-#         for _ in range(number_of_nodes):
-#             self.mutate_single_node(new_graph)
-
-#     def check_solution(self, new_graph):
-#         """
-#         Checks and accepts better solutions than the current solution.
-#         """
-#         new_value = new_graph.calculate_value()
-#         old_value = self.value
-
-#         # We are looking for maps that cost less!
-#         if new_value <= old_value:
-#             self.graph = new_graph
-#             self.value = new_value
-
-#     def run(self, iterations, verbose=False, mutate_nodes_number=1):
-#         """
-#         Runs the hillclimber algorithm for a specific amount of iterations.
-#         """
-#         self.iterations = iterations
-
-#         for iteration in range(iterations):
-#             # Nice trick to only print if variable is set to True
-#             print(f'Iteration {iteration}/{iterations}, current value: {self.value}') if verbose else None
-
-#             # Create a copy of the graph to simulate the change
-#             new_graph = copy.deepcopy(self.graph)
-
-#             self.mutate_graph(new_graph, number_of_nodes=mutate_nodes_number)
-
-#             # Accept it if it is better
-#             self.check_solution(new_graph)

@@ -1,3 +1,5 @@
+# Celine Diks, Chris Bernsen & Julia Ham
+
 from code.classes.traject import Traject
 from code.classes.map import Map
 import random 
@@ -14,8 +16,6 @@ def random_0(stations, max_trajects, max_time):
     for i in range(max_trajects):
 
         new_traject = Traject()
-
-        # print(random.choice(list(stations.values())))
         
         # add random station to traject
         random_station = random.choice(list(stations.values()))
@@ -29,10 +29,9 @@ def random_0(stations, max_trajects, max_time):
 
         x = True
         while x == True:
+            
             # check if connection is already in traject
             for station in connections:
-                # print(f"possible connections: {connections}")
-                # print(f"KIJKHIERNAAR {station}")
                 if not new_traject.has_station(station):
                     time = connections[station]
                     last_station = station
@@ -55,8 +54,6 @@ def random_0(stations, max_trajects, max_time):
         print(f"TRAJECT: {new_traject.get_stations()} with TIME: {new_traject.get_time()}")
 
     return True
-
-        # delete last added station (so that total_minutes < 2 hours)
 
 
 

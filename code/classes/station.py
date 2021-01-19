@@ -1,7 +1,9 @@
+# Celine Diks, Chris Bernsen & Julia Ham
 class Station():
     """
     Class for a single station object
     """
+
     def __init__(self, name):
         self.name = name
         self.coordinates = (0, 0)
@@ -15,6 +17,7 @@ class Station():
         Expects an object as station and an integer as time.
         Returns boolean True if succesfull
         """
+
         self.connections[station] = time
         return True
 
@@ -23,6 +26,7 @@ class Station():
         Retrieves all connections for a single station object.
         Returns connections of given station.
         """
+
         return self.connections
 
     def has_connection(self, connection):
@@ -31,6 +35,7 @@ class Station():
         Expects a string as connection.
         Returns boolean True if station has a connection, else False.
         """
+
         if connection in self.connections:
             return True
         else:
@@ -42,6 +47,7 @@ class Station():
         Expects floats as x and y for coordinates.
         Returns boolean True if succesfull.
         """
+
         self.coordinates = (x, y)
         return True
 
@@ -49,6 +55,7 @@ class Station():
         """
         Returns the coordinates for a single station as a tuple
         """
+
         return self.coordinates
 
     def __repr__(self):
@@ -56,4 +63,5 @@ class Station():
         Representates a station object when printed.
         Returns string as name of the station object.
         """
+        
         return self.name

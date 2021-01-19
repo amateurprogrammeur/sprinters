@@ -1,3 +1,5 @@
+# Celine Diks, Chris Bernsen & Julia Ham
+
 from code.classes.traject import Traject
 from code.classes.map import Map
 import random 
@@ -23,28 +25,25 @@ class random_1():
         """
 
         new_traject = Traject()
-
-        # print(random.choice(list(self.stations.values())))
         
         # add random station to traject
         random_station = random.choice(list(self.stations.values()))
-        # print(f"random station = {random_station}")
 
         new_traject.add_station(random_station, 0)
 
         # check connections of station
         connections = random_station.get_connections()
-        # print(f"connections of random station ={connections}")
 
         x = True
         while x == True:
+
             # check if connection is already in traject
             station = random.choice(list(connections.keys()))
 
+            # checks if all connections are already in traject
             if new_traject.has_station(station):
                 list_1 = list(connections.keys())
                 list_2 = new_traject.get_stations()
-                
 
                 check = all(item in list_2 for item in list_1)
 
@@ -53,12 +52,13 @@ class random_1():
                 else:
                     continue
             else:
+                
+                # add connection with station and time as traject to new_traject
                 time = connections[station]
                 last_station = station
                 last_time = connections[station]
                 connections = last_station.get_connections()
                 new_traject.add_station(station, time)
-
 
                 if new_traject.get_time() > self.max_time:
                     x = False
@@ -77,13 +77,10 @@ class random_1():
         
         new_map = Map(self.stations)
 
+        # adds new_traject to new_map untill maximum is reached
         for i in range(self.max_trajects):
-
             new_traject = self.make_random_traject()
-
             new_map.add_traject(new_traject)
-
-        # print(new_map.get_K())
 
         return new_map
 

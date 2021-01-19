@@ -124,68 +124,124 @@ if __name__ == '__main__':
             algorithm = input("Choose algorithm: Random, Prims? \n")
             algorithm = algorithm.lower()
 
-            new_K = 0
-            highest_K = 0
-            lowest_K = 99999
+            # random algorithm
+            if algorithm == "random":
+                new_K = 0
+                highest_K = 0
+                lowest_K = 99999
 
-            if algorithm == 'random':
-                tree = load.stations
-            elif algorithm == 'prims':
-                tree = prims(load.stations).make_tree()
+                # runs random algorithm as many times as user asks for 
+                iterations = 0
+                while iterations < 1:
 
-            # runs algorithm as many times as user asks for 
-            iterations = 0
-            while iterations < 1:
+                    # asks how many times to run algorithm
+                    iterations = int(input("How many iterations? \n"))
+                    
+                    for i in range(iterations):
 
-                # asks how many times to run algorithm
-                iterations = int(input("How many iterations? \n"))
+                        # creates and runs random algorithm class object
+                        random = random_1(load.stations, trajects, time)
+                        new_map = random.run()
+                        new_K = new_map.get_K()
+
+                         # checks for new higher k value
+                        if new_K > highest_K:
+                            highest_K = new_K
+                            highest_map = new_map
+                            # print(f"highest K: {highest_K}")
+
+                        # checks for new lower k value
+                        elif new_K < lowest_K:
+                            lowest_K = new_K
+                            lowest_map = new_map
+                            # print(f"lowest_K: {lowest_K}")
+
+                    # saves and visualises highest_K output
+                    print(f"Random: Highest_K: {highest_K}")
+                    highest_map.save_map(f"{algorithm}_{level}_{iterations}_highest_K")
+                    highest_map.visualise_trajects(f"{algorithm}_Trajects_{iterations}")
+                    # highest_map.visualise("Nederland_Tree")
+                    
+                # applies hillclimber if asked for
+                question = ""
+                while question != "y" and question != "n":
+
+                    # asks whether to use hillclimber
+                    question = input("Apply hillclimber? [y/n] \n")
+
+                    if question == "y":
+
+                        # runs hillclimber as many times as user asks for
+                        iterations = 0
+                        while iterations < 1:
+
+                            # asks how often to run hillclimber
+                            iterations = int(input("How many iterations? \n"))
+                            hillclimber = Hillclimber(load.stations, highest_map, trajects, time)
+                            new_map = hillclimber.run(iterations)
+
+                            # saves and visualises highest_K output
+                            new_map.save_map(f"{algorithm}_{level}_{iterations}_hillclimber_highest_K")
+                            new_map.visualise_trajects(f"{algorithm}_hillclimber_Trajects_{iterations}")
+
+                    # highest_map.save_map(f"{algorithm}_{level}_{iterations}_highest_K")
+                    # lowest_map.save_map(f"{algorithm}_{level}_{iterations}_lowest_K")
+                    
+            # runs prims algorithm
+            elif algorithm == "prims":
                 
-                for i in range(iterations):
+                prims_tree = prims(load.stations).make_tree()
 
-                    # creates and runs algorithm class object
-                    random = random_1(tree, trajects, time)
-                    new_map = random.run()
-                    new_K = new_map.get_K()
+                new_K = 0
+                highest_K = 0
+                lowest_K = 99999
+
+                iterations = 0
+                while iterations < 1:
+                    iterations = int(input("How many iterations? \n"))
+
+                    for i in range(iterations):
+                        random = random_1(prims_tree, trajects, time)
+                        new_map = random.run()
+                        new_K = new_map.get_K()
 
                         # checks for new higher k value
-                    if new_K > highest_K:
-                        highest_K = new_K
-                        highest_map = new_map
-                        # print(f"highest K: {highest_K}")
+                        if new_K > highest_K:
+                            highest_K = new_K
+                            highest_map = new_map
+                            # print(f"Highest K: {highest_K}")
 
-                    # checks for new lower k value
-                    elif new_K < lowest_K:
-                        lowest_K = new_K
-                        lowest_map = new_map
-                        # print(f"lowest_K: {lowest_K}")
+                        elif new_K < lowest_K:
+                            lowest_K = new_K
+                            lowest_map = new_map
+                            # print(f"Lowest K: {lowest_K}")
 
-                # saves and visualises highest_K output
+                    highest_map.save_map(f"{algorithm}_{level}_{iterations}_highest_K")
+                    highest_map.visualise_trajects(f"Prim_Random_Trajects_{iterations}")
+                    # highest_map.visualise("Prims_Tree")
+                    # lowest_map.save_map(f"{algorithm}_{level}_{iterations}_lowest_K")
+
                 print(f"Random: Highest_K: {highest_K}")
-                highest_map.save_map(f"{algorithm}_{level}_{iterations}_highest_K")
-                highest_map.visualise_trajects(f"{algorithm}_Trajects_{iterations}")
-                # highest_map.visualise("Nederland_Tree")
-                
-            # applies hillclimber if asked for
-            question = ""
-            while question != "y" and question != "n":
 
-                # asks whether to use hillclimber
-                question = input("Apply hillclimber? [y/n] \n")
+                # highest_map.visualise_trajects("Prim_Random_Trajects")
 
-                if question == "y":
+                question = ""
+                while question != "y" and question != "n":
+                    question = input("Apply hillclimber? [y/n] \n")
 
-                    # runs hillclimber as many times as user asks for
-                    iterations = 0
-                    while iterations < 1:
+                    if question == "y":
+                        iterations = 0
+                        while iterations < 1:
+                            iterations = int(input("How many iterations? \n"))
+                            hillclimber = Hillclimber(prims_tree, highest_map, trajects, time)
+                            new_map = hillclimber.run(iterations)
 
-                        # asks how often to run hillclimber
-                        iterations = int(input("How many iterations? \n"))
-                        hillclimber = Hillclimber(tree, highest_map, trajects, time)
-                        new_map = hillclimber.run(iterations)
+                            new_map.save_map(f"{algorithm}_{level}_{iterations}_hillclimber_highest_K")
+                            new_map.visualise_trajects(f"{algorithm}_Random_Hillclimber_Trajects_{iterations}")
 
-                        # saves and visualises highest_K output
-                        new_map.save_map(f"{algorithm}_{level}_{iterations}_hillclimber_highest_K")
-                        # new_map.visualise_trajects(f"{algorithm}_hillclimber_Trajects_{iterations}")
+
+
+                   
 
 
 
