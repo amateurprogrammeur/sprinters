@@ -65,3 +65,20 @@ class Traject():
         """
         
         return self.total_minutes
+
+    
+    def get_last_station(self):
+        """
+        Retrieves last added station to the traject.
+        Returns itself.
+        """
+
+        return self.stations[-1]
+
+    def __repr__(self):
+        """
+        Representates a station object when printed.
+        Returns string as name of the station object.
+        """
+        
+        return self.stations[0].name

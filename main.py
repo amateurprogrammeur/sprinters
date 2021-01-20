@@ -16,6 +16,7 @@ from code.classes.map import Map
 from code.algoritmes.random_1 import random_1
 from code.algoritmes.prims import prims
 from code.algoritmes.hillclimber import Hillclimber
+from code.algoritmes.depth_first import DepthFirst
 
 # libraries
 from csv import reader
@@ -91,8 +92,7 @@ def load(level):
 
     return True
    
-
-if __name__ == '__main__':
+def main():
 
     level = ""
 
@@ -118,20 +118,22 @@ if __name__ == '__main__':
 
         # runs the desired algorithm
         algorithm = ""
-        while algorithm != "random" and algorithm != "prims":
+        while algorithm != "random" and algorithm != "prims" and algorithm != 'df':
 
             # asks which algorithm to run
-            algorithm = input("Choose algorithm: Random, Prims? \n")
+            algorithm = input("Choose algorithm: Random, Prims, Depth-First [DF]? \n")
             algorithm = algorithm.lower()
-
-            new_K = 0
-            highest_K = 0
-            lowest_K = 99999
 
             if algorithm == 'random':
                 tree = load.stations
             elif algorithm == 'prims':
                 tree = prims(load.stations).make_tree()
+            elif algorithm == 'df':
+                continue
+
+            new_K = 0
+            highest_K = 0
+            lowest_K = 99999
 
             # runs algorithm as many times as user asks for 
             iterations = 0
@@ -185,7 +187,18 @@ if __name__ == '__main__':
 
                         # saves and visualises highest_K output
                         new_map.save_map(f"{algorithm}_{level}_{iterations}_hillclimber_highest_K")
-                        # new_map.visualise_trajects(f"{algorithm}_hillclimber_Trajects_{iterations}")
+                        new_map.visualise_trajects(f"{algorithm}_hillclimber_Trajects_{iterations}")
+
+            return True
+
+        depth_first = DepthFirst(load.stations, trajects, time)
+        depth_first.run(3)
+
+if __name__ == '__main__':
+
+    main()
+
+
 
 
 

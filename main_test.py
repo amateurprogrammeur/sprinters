@@ -240,7 +240,6 @@ if __name__ == '__main__':
                             new_map.visualise_trajects(f"{algorithm}_Random_Hillclimber_Trajects_{iterations}")
 
 
-
                    
 
 

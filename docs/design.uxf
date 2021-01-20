@@ -20,7 +20,7 @@ get_stations()
 remove_station(station, time)
 has_station(station)
 get_time()
-
+get_last_station()
 
 </panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>310</x><y>30</y><w>210</w><h>190</h></coordinates><panel_attributes>Class Map
 --
@@ -63,7 +63,15 @@ make_random_traject()
 run()
 
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>350</x><y>260</y><w>460</w><h>30</h></coordinates><panel_attributes>Algorithms</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>368</x><y>509</y><w>210</w><h>190</h></coordinates><panel_attributes>Class Kruskals
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>350</x><y>260</y><w>460</w><h>30</h></coordinates><panel_attributes>Algorithms</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>604</x><y>503</y><w>210</w><h>190</h></coordinates><panel_attributes>Class Depth-first
+--
+station_tree = stations {}
+max_trajects = max_trajects
+max_time = max_time
+--
+deadend_stations()
+run()
+depthfirst()</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>374</x><y>503</y><w>210</w><h>190</h></coordinates><panel_attributes>Class Kruskals
 --
 Stations: Station()
 Kruskals_tree: {}

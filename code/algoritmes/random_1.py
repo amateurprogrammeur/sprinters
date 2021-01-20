@@ -2,7 +2,7 @@
 
 from code.classes.traject import Traject
 from code.classes.map import Map
-import random 
+import random
 
 class random_1():
     """
@@ -37,7 +37,6 @@ class random_1():
         x = True
         while x == True:
 
-            # check if connection is already in traject
             station = random.choice(list(connections.keys()))
 
             # checks if all connections are already in traject
@@ -48,7 +47,9 @@ class random_1():
                 check = all(item in list_2 for item in list_1)
 
                 if check:
-                    x = False
+                    chance = random.randint(1,2)
+                    if chance == 1:
+                        x = False
                 else:
                     continue
             else:
