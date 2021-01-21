@@ -67,9 +67,12 @@ class DepthFirst():
         return deadend_stations
 
 
-    def depthfirst(self, depth):
+    def depthfirst(self, depth, iterations):
         deadend_stations = self.deadend_stations()
         children = []
+        test_map = Map(self.station_tree)
+        visited = []
+        best_children = []
 
         while len(deadend_stations) > 0:
 
@@ -79,44 +82,60 @@ class DepthFirst():
             children.append(new_traject)
 
             current_depth = 0
+            highest_K = 0
             # while current_depth < depth:
+            for i in range(iterations):
+                for child_traject in children:
+                    if current_depth < depth:
+                        if child_traject.get_time() < self.max_time:
+                            connections = child_traject.get_last_station().get_connections()
+                            print(f"Connections: {connections}")
+                            print(f"last_station: {child_traject.get_last_station()}")
+                            for connection in connections:
+                                # if connection.name not in visited:
+                                time = connections[connection]
 
+                                new_child_traject = copy.deepcopy(child_traject)
+                                children.append(new_child_traject)
+                                new_child_traject.add_station(connection, time)
 
-            # pakt alleen children van den helder, niet van dordrecht
-            for child_traject in children:
-                if current_depth < depth:
-                    if child_traject.get_time() < self.max_time:
-                        connections = child_traject.get_last_station().get_connections()
-                        print(f"Connections: {connections}")
-                        for connection in connections:
-                            time = connections[connection]
+                                # print(f"station {connection} added")
 
-                            new_child_traject = copy.deepcopy(child_traject)
-                            children.append(new_child_traject)
-                            new_child_traject.add_station(connection, time)
+                                # if connection in deadend_stations:
+                                #     deadend_stations.remove(connection)
+                                #     print(f"REMOVED: {connection}")
 
-                            # print(f"station {connection} added")
+                                test_map.add_traject(new_child_traject)
+                                new_K = test_map.get_K()
 
-                            if connection in deadend_stations:
-                                deadend_stations.remove(connection)
-                                print(f"REMOVED: {connection}")
+                                if new_K > highest_K:
+                                    highest_child_traject = new_child_traject
+                                    print(f"highest found: {highest_child_traject} with {new_K}")
+                                    highest_K = new_K
 
-                        current_depth += 1
+                                test_map.delete_last_traject()
+
+                                    # visited.append(connection.name)
+
+                            current_depth += 1
+                        else:
+                            print("Maximum time reached")
+                            continue
                     else:
-                        continue
-            
+                        children.clear()
+        
+                children.clear()
+                test_map.add_traject(highest_child_traject)
+                children.append(highest_child_traject)
         print(f"CHILDREN: {children}")
 
-        for child_traject in children:
-            pass
-
-        pass
+        print(f"Trajects: {test_map.get_trajects()}")
+        return test_map
 
 
-    def run(self, depth):
+    def run(self, depth, iterations):
 
-        self.depthfirst(depth)
-
-        pass
+        test_map = self.depthfirst(depth, iterations)
+        return test_map
 
 pass

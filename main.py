@@ -15,8 +15,10 @@ from code.classes.map import Map
 # algorithms
 from code.algoritmes.random_1 import random_1
 from code.algoritmes.prims import prims
+from code.algoritmes.kruskals import kruskals
 from code.algoritmes.hillclimber import Hillclimber
 from code.algoritmes.depth_first import DepthFirst
+from code.algoritmes.sim_ann import Sim_Ann
 
 # libraries
 from csv import reader
@@ -118,7 +120,7 @@ def main():
 
         # runs the desired algorithm
         algorithm = ""
-        while algorithm != "random" and algorithm != "prims" and algorithm != 'df':
+        while algorithm != "random" and algorithm != "prims" and algorithm != 'sa':
 
             # asks which algorithm to run
             algorithm = input("Choose algorithm: Random, Prims, Depth-First [DF]? \n")
@@ -169,12 +171,12 @@ def main():
                 
             # applies hillclimber if asked for
             question = ""
-            while question != "y" and question != "n":
+            while question != "h" and question != "s" and question != "n":
 
                 # asks whether to use hillclimber
-                question = input("Apply hillclimber? [y/n] \n")
+                question = input("Apply hillclimber or Simulated Annealing or None? [h/s/n] \n")
 
-                if question == "y":
+                if question == "h":
 
                     # runs hillclimber as many times as user asks for
                     iterations = 0
@@ -189,10 +191,41 @@ def main():
                         new_map.save_map(f"{algorithm}_{level}_{iterations}_hillclimber_highest_K")
                         new_map.visualise_trajects(f"{algorithm}_hillclimber_Trajects_{iterations}")
 
+                elif question == "s":
+
+                    # runs hillclimber as many times as user asks for
+                    iterations = 0
+                    while iterations < 1:
+
+                        # asks how often to run hillclimber
+                        iterations = int(input("How many iterations? \n"))
+                        SA = Sim_Ann(tree, highest_map, trajects, time)
+                        new_map = SA.run(iterations)
+
+                        # saves and visualises highest_K output
+                        new_map.save_map(f"{algorithm}_{level}_{iterations}_SA_highest_K")
+                        new_map.visualise_trajects(f"{algorithm}_SA_Trajects_{iterations}") 
+
             return True
 
-        depth_first = DepthFirst(load.stations, trajects, time)
-        depth_first.run(3)
+        depth = 0
+        while depth < 1:
+            # asks how many times to run algorithm
+            depth = int(input("How deep? \n"))
+
+        iterations = 0
+        while iterations < 1:
+            # asks how many times to run algorithm
+            iterations = int(input("How many iterations? \n"))
+
+        # tree = prims(load.stations).make_tree()
+        # tree = kruskals(load.stations).make_tree()
+        tree = load.stations
+
+        depth_first = DepthFirst(tree, trajects, time)
+        df_map = depth_first.run(depth, iterations)
+        df_map.visualise_trajects(f"{algorithm}_{depth}_Trajects")
+        print(f"Highest K: {df_map.get_K()}")
 
 if __name__ == '__main__':
 

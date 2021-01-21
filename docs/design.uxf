@@ -22,13 +22,14 @@ has_station(station)
 get_time()
 get_last_station()
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>310</x><y>30</y><w>210</w><h>190</h></coordinates><panel_attributes>Class Map
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>310</x><y>30</y><w>210</w><h>200</h></coordinates><panel_attributes>Class Map
 --
 Trajects: [Traject]
 --
 add_traject(traject)
 add_traject_list(traject_list)
 get_trajects()
+delete_last_traject()
 get_K()
 visualise()
 visualise_trajects()
@@ -63,7 +64,7 @@ make_random_traject()
 run()
 
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>350</x><y>260</y><w>460</w><h>30</h></coordinates><panel_attributes>Algorithms</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>604</x><y>503</y><w>210</w><h>190</h></coordinates><panel_attributes>Class Depth-first
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>350</x><y>260</y><w>460</w><h>30</h></coordinates><panel_attributes>Algorithms</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>474</x><y>503</y><w>210</w><h>190</h></coordinates><panel_attributes>Class Depth-first
 --
 station_tree = stations {}
 max_trajects = max_trajects
@@ -71,9 +72,22 @@ max_time = max_time
 --
 deadend_stations()
 run()
-depthfirst()</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>374</x><y>503</y><w>210</w><h>190</h></coordinates><panel_attributes>Class Kruskals
+depthfirst()</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>244</x><y>503</y><w>210</w><h>190</h></coordinates><panel_attributes>Class Kruskals
 --
 Stations: Station()
 Kruskals_tree: {}
 --
-make_tree()</panel_attributes><additional_attributes></additional_attributes></element></diagram>
+make_tree()</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>692</x><y>503</y><w>210</w><h>190</h></coordinates><panel_attributes>Class Simmulated Annealing
+--
+station_tree = stations
+trajects = initial_map.get_trajects
+solution = int(initial_map.get_K
+max_trajects = max_trajects
+max_time = max_time
+--
+-mutate_traject()
+-delete_traject()
+-mutate()
+-check_solution()
+-run(iterations)
+</panel_attributes><additional_attributes></additional_attributes></element></diagram>

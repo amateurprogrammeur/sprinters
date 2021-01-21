@@ -81,4 +81,4 @@ class Traject():
         Returns string as name of the station object.
         """
         
-        return self.stations[0].name
+        return f"TR: {self.stations[0].name}"

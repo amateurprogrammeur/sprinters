@@ -164,6 +164,7 @@ class Map():
         Saves the created visualisation of the trajects.
         Expects a string as name.
         """
+        
         # writes an output csv file with created trajects
         with open(f'code/output/csvs/{name}.csv', 'w', newline='') as file:
             writer = csv.writer(file)
@@ -238,3 +239,11 @@ class Map():
         K = p*10000 - (T*100 + Min)
 
         return K
+
+    def delete_last_traject(self):
+        """
+        Removes last traject from trajects list.
+        Returns boolean True if succesfull.
+        """
+        self.trajects.pop()
+        return True

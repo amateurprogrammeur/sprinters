@@ -47,8 +47,7 @@ class random_1():
                 check = all(item in list_2 for item in list_1)
 
                 if check:
-                    chance = random.randint(1,2)
-                    if chance == 1:
+                    if random.random() < 0.50:
                         x = False
                 else:
                     continue
