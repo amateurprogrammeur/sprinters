@@ -10,7 +10,7 @@ import random
 import operator
 
 
-class kruskals():
+class Kruskals():
     """
     Class for Kruskals algorithm.
     """

@@ -4,7 +4,7 @@
 from code.classes.traject import Traject
 from code.classes.map import Map
 from code.classes.station import Station
-from .random_1 import random_1
+from .random_1 import Random_1
 
 # libraries
 import copy
@@ -37,7 +37,7 @@ class Hillclimber():
         """
         
         # creates new random traject
-        random = random_1(self.station_tree, self.max_trajects, self.max_time)
+        random = Random_1(self.station_tree, self.max_trajects, self.max_time)
         new_traject = random.make_random_traject()
 
         return new_traject

@@ -77,17 +77,30 @@ depthfirst()</panel_attributes><additional_attributes></additional_attributes></
 Stations: Station()
 Kruskals_tree: {}
 --
-make_tree()</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>692</x><y>503</y><w>210</w><h>190</h></coordinates><panel_attributes>Class Simmulated Annealing
+make_tree()</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>692</x><y>503</y><w>210</w><h>260</h></coordinates><panel_attributes>Class Simmulated Annealing
 --
 station_tree = stations
 trajects = initial_map.get_trajects
 solution = int(initial_map.get_K
 max_trajects = max_trajects
 max_time = max_time
+data_list = []
+chance_list = []
+highest_map = Map(self.station_tree)
+highest_solution = 0
 --
 -mutate_traject()
 -delete_traject()
 -mutate()
+-add_traject()
 -check_solution()
 -run(iterations)
-</panel_attributes><additional_attributes></additional_attributes></element></diagram>
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>360</x><y>700</y><w>210</w><h>190</h></coordinates><panel_attributes>Class Chance
+--
+stations = stations
+max_trajects = max_trajects
+max_time = max_time
+--
+deadend_stations()
+make_chance_traject()
+run()</panel_attributes><additional_attributes></additional_attributes></element></diagram>

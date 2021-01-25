@@ -1,0 +1,4 @@
+train,stations
+train_1,"[Breda, Etten-Leur, Roosendaal, Vlissingen]"
+train_2,"[Schiedam Centrum, Rotterdam Centraal, Rotterdam Alexander, Rotterdam Blaak, Dordrecht, Breda, Etten-Leur, Roosendaal, Vlissingen]"
+score,1059.4098360655737

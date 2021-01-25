@@ -13,12 +13,13 @@ from code.classes.traject import Traject
 from code.classes.map import Map
 
 # algorithms
-from code.algoritmes.random_1 import random_1
-from code.algoritmes.prims import prims
-from code.algoritmes.kruskals import kruskals
+from code.algoritmes.random_1 import Random_1
+from code.algoritmes.prims import Prims
+from code.algoritmes.kruskals import Kruskals
 from code.algoritmes.hillclimber import Hillclimber
 from code.algoritmes.depth_first import DepthFirst
 from code.algoritmes.sim_ann import Sim_Ann
+from code.algoritmes.chance import Chance
 
 # libraries
 from csv import reader
@@ -123,13 +124,13 @@ def main():
         while algorithm != "random" and algorithm != "prims" and algorithm != 'sa':
 
             # asks which algorithm to run
-            algorithm = input("Choose algorithm: Random, Prims, Depth-First [DF]? \n")
+            algorithm = input("Choose algorithm: Random, Prims, Depth-First [DF], or chance? \n")
             algorithm = algorithm.lower()
 
-            if algorithm == 'random':
+            if algorithm == 'random' or algorithm == "chance":
                 tree = load.stations
             elif algorithm == 'prims':
-                tree = prims(load.stations).make_tree()
+                tree = Prims(load.stations).make_tree()
             elif algorithm == 'df':
                 continue
 
@@ -147,15 +148,19 @@ def main():
                 for i in range(iterations):
 
                     # creates and runs algorithm class object
-                    random = random_1(tree, trajects, time)
-                    new_map = random.run()
+                    if algorithm == "random" or "prims":
+                        random = Random_1(tree, trajects, time)
+                        new_map = random.run()
+                    if algorithm == "chance":
+                        chance = Chance(tree, trajects, time)
+                        new_map = chance.run()
                     new_K = new_map.get_K()
 
                         # checks for new higher k value
                     if new_K > highest_K:
                         highest_K = new_K
                         highest_map = new_map
-                        # print(f"highest K: {highest_K}")
+                        print(f"highest K: {highest_K}")
 
                     # checks for new lower k value
                     elif new_K < lowest_K:
@@ -164,7 +169,7 @@ def main():
                         # print(f"lowest_K: {lowest_K}")
 
                 # saves and visualises highest_K output
-                print(f"Random: Highest_K: {highest_K}")
+                print(f"{algorithm}: Highest_K: {highest_K}")
                 highest_map.save_map(f"{algorithm}_{level}_{iterations}_highest_K")
                 highest_map.visualise_trajects(f"{algorithm}_Trajects_{iterations}")
                 # highest_map.visualise("Nederland_Tree")

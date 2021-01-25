@@ -4,7 +4,7 @@ from code.classes.traject import Traject
 from code.classes.map import Map
 import random 
 
-def random_0(stations, max_trajects, max_time):
+def Random_0(stations, max_trajects, max_time):
     """
     Takes first station and creates a random traject.
     Expects stations, maximum amount of trajects and maximum amount of time.

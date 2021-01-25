@@ -7,7 +7,7 @@ from code.classes.station import Station
 import random
 import operator
 
-class prims():
+class Prims():
     """
     Algorithm that creates a tree with shortest connections.
     Returns the created tree.
