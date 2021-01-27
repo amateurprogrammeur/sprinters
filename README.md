@@ -134,7 +134,7 @@ As said in the explanation from the algorithms above, we use a couple of algorit
 
     ***NL & HL***
     
-    2. Asks if Prims needs to be applied, (y)es or (n)o. Continues at v.
+    2. Asks if Prims needs to be applied, (y)es or (n)o. Continues at iv.
     
     ***AD***
     
