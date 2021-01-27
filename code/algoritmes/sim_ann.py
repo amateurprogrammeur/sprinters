@@ -10,8 +10,11 @@ from .random import Random
 import copy
 import random
 import numpy as np
-
 import matplotlib.pyplot as plt
+
+#misc
+from code.constants import MAX_TEMPERATURE
+
 plt.style.use('seaborn-whitegrid')
 
 class Sim_Ann():
@@ -32,8 +35,8 @@ class Sim_Ann():
         self.max_trajects = max_trajects
         self.max_time = max_time
 
-        self.highest_map = Map(self.station_tree)
-        self.highest_solution = 0
+        self.best_map = Map(self.station_tree)
+        self.best_solution = 0
 
 
     def new_random_traject(self):
@@ -43,8 +46,8 @@ class Sim_Ann():
         """
         
         # creates new random traject
-        random = Random(self.station_tree, self.max_trajects, self.max_time)
-        new_traject = random.make_random_traject()
+        random_algorithm = Random(self.station_tree, self.max_trajects, self.max_time)
+        new_traject = random_algorithm.make_random_traject()
 
         return new_traject
 
@@ -114,11 +117,10 @@ class Sim_Ann():
         new_map.add_traject_list(self.trajects)
         new_solution = new_map.get_K()
 
-        # saves the highest solution
-        if new_solution > self.highest_solution:
-            self.highest_map = copy.deepcopy(new_map)
-            self.highest_solution = new_solution
-            print(f"Highest_K: {self.highest_solution}")
+        # saves the best solution
+        if new_solution > self.best_solution:
+            self.best_map = copy.deepcopy(new_map)
+            self.best_solution = new_solution
 
         # accept change if solution is higher
         if new_solution > self.old_solution:
@@ -143,7 +145,7 @@ class Sim_Ann():
         Returns a map with highest K value as visualisation.
         """
 
-        max_temperature = 250
+        max_temperature = MAX_TEMPERATURE
 
         # runs simulated annealing by mutating trajects if needed
         for i in range(iterations):
@@ -159,4 +161,4 @@ class Sim_Ann():
         # check solution is called one last time in case mutations are made after check solution is called in previous functions
         self.check_solution(temperature)
 
-        return self.highest_map
+        return self.best_map

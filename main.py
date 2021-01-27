@@ -27,8 +27,8 @@ import csv
 
 # misc
 from code.constants import *
-from load import load
-from load_advanced import load_advanced
+from code.load import load
+from code.load_advanced import load_advanced
 
    
 def main():
@@ -118,7 +118,6 @@ def main():
             if new_K > highest_K:
                 highest_K = new_K
                 highest_map = result_map
-                print(f"Highest K: {highest_K}")
 
             # checks for new lower k value
             elif new_K < lowest_K:
@@ -126,7 +125,7 @@ def main():
                 lowest_map = result_map
 
         # saves and visualises highest_K output
-        print(f"{first_algorithm}: Highest_K: {highest_K}")
+        print(f"{first_algorithm.capitalize()}: Highest_K: {highest_K}")
         highest_map.save_map(f"{level}_{prim_algorithm}ayPrims_{first_algorithm}_{first_iterations}_Highest_K")
         highest_map.visualise_trajects(f"{level}_{prim_algorithm}ayPrims_{first_algorithm}_{first_iterations}_Trajects")
                 
@@ -155,6 +154,8 @@ def main():
         second_iterations = int(input("How many iterations? \n"))
 
         result_map = second_algorithm_class.run(second_iterations)
+
+        print(f"{second_algorithm}: Highest K: {result_map.get_K()}")
 
         # saves and visualises highest_K output
         result_map.save_map(f"{level}_{prim_algorithm}ayPrims_{first_algorithm}_{first_iterations}_{second_algorithm}_{second_iterations}_Highest_K")

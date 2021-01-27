@@ -69,7 +69,6 @@ class DepthFirst():
             if len(connections) == 1:
                 deadend_stations.append(station)
 
-        print(f" DEADEND STATIONS: {deadend_stations}")
         return deadend_stations
 
 
@@ -95,8 +94,6 @@ class DepthFirst():
                     if current_depth < depth:
                         if child_traject.get_time() < self.max_time:
                             connections = child_traject.get_last_station().get_connections()
-                            print(f"Connections: {connections}")
-                            print(f"last_station: {child_traject.get_last_station()}")
                             for connection in connections:
                                 
                                 # if connection.name not in visited:
@@ -117,7 +114,6 @@ class DepthFirst():
 
                                 if new_K > highest_K:
                                     highest_child_traject = new_child_traject
-                                    print(f"highest found: {highest_child_traject} with {new_K}")
                                     highest_K = new_K
 
                                 test_map.delete_last_traject()
@@ -126,7 +122,6 @@ class DepthFirst():
 
                             current_depth += 1
                         else:
-                            print("Maximum time reached")
                             continue
                     else:
                         children.clear()
@@ -134,9 +129,6 @@ class DepthFirst():
                 children.clear()
                 test_map.add_traject(highest_child_traject)
                 children.append(highest_child_traject)
-        print(f"CHILDREN: {children}")
-
-        print(f"Trajects: {test_map.get_trajects()}")
         return test_map
 
 

@@ -61,7 +61,8 @@ class Prims():
 
         # runs until all stations are visited
         while len(visited) is not len(self.prims_tree):
-            min_connection_time = 999999
+            # starts as arbitrarily high number
+            min_connection_time = 9999
 
             # get connections of visited stations
             for station in visited:

@@ -129,27 +129,28 @@ As said in the explanation from the algorithms above, we use a couple of algorit
     1. Witch datafiles to load? Options given: 
         - Holland (HL)
         - Netherlands (NL)
-        If choosen HL of NL continues at 2.
         - Advanced (AD)
-        With advanced, data is loading without certain stations or connections (*see assignment*). If choosen continues at 3. 
+        If Advanced is chosen, continues at 3.
 
     ***NL & HL***
-    2. Asks if Prims needs to be applied (y/n) (continues at 4)
+    2. Asks if Prims needs to be applied, (y)es or (n)o. Continues at 5.
+    
     ***AD***
-    3. Asks input for **{{station name}}** to remove or **connections**
+    3. Asks input for (station name) to remove that station object or (connections) for three random connections to be removed.
 
     4. Choose first algorithm to run:
         - Random (random)
         - Chance (chance)
-    4. How many iterations?
-    5. Choose second algorithm to run:
-        - Hillclimber (HC)
-        - Simulated Annealing (SA)
-        - None (N)
-    6. How many iterations?
+    5. How many iterations? (integer)
+    6. Choose second algorithm to run:
+        - Hillclimber (hc)
+        - Simulated Annealing (sa)
+        - None (n)
+    7. How many iterations? (integer)
 
 ### Other
 We also tried implementing a depth first and kruskals algorithm, but did not manage to make them work perfectly. You can still find the documents of depth first and kruskals algorithms in the folder sprinters/algorithms/ but you will not be asked if you want to use these in the command line of the terminal.
+
 ### Authors
 - Celine Diks
 - Chris Bernsen

@@ -1,14 +1,3 @@
-Networkx
-pip install networkx
-
-Matplotlib
-pip install matplotlib
-
-Pandas
-pip install pandas
-
-#VSC extensions
-UMLet
-
-
-
+numpy==1.19.5
+matplotlib==3.3.3
+networkx==2.5

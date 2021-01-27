@@ -5,14 +5,10 @@ from code.classes.traject import Traject
 
 # libraries
 import networkx as nx
-from matplotlib import pyplot
 import matplotlib.colors as mcolors
 import matplotlib.pyplot as plt
-import pandas as pd
-import numpy as np
 import csv
 import random
-import os
 
 class Map():
     """
@@ -133,12 +129,6 @@ class Map():
         # saves graph as file
         plt.savefig(f'code/output/graphs/{name}.png', format="PNG")
         plt.show()
-
-        # fig, ax = plt.subplots(figsize = (8,8))
-        # nx.draw(G, pos, edge_color=colors, width=weights, with_labels=True, node_size=60, node_color='grey', font_size=4, font_weight='bold', connectionstyle='arc3, rad = 0.1', ax=ax)
-     
-        # plt.savefig(f'code/output/graphs/{name}.png', format="PNG")
-        # plt.show()
 
 
     def save_map(self, name):

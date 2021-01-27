@@ -69,7 +69,6 @@ class Kruskals():
                     smallest_connection_station = self.kruskals_tree[station_name]
                     min_connection_time = connection_time
 
-            print(min_connection_time)
             smallest_connection_station.add_connection(smallest_connection, min_connection_time)
             smallest_connection.add_connection(smallest_connection_station, min_connection_time)
 

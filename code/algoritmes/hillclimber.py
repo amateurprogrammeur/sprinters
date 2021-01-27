@@ -7,7 +7,6 @@ from code.classes.station import Station
 from .random import Random
 
 # libraries
-import copy
 import random
 
 class Hillclimber():
@@ -54,7 +53,6 @@ class Hillclimber():
             # checks and shows highest k value
             if new_solution > self.solution:
                 self.solution = new_solution
-                print(f"Hillclimber: highest_K {new_solution}")
             
             # adds old traject again if k value did not increase
             else:
@@ -76,8 +74,6 @@ class Hillclimber():
             # checks and shows highest k value
             if new_solution > self.solution:
                 self.solution = new_solution
-
-                print(f"Hillclimber: highest_K {new_solution}")
 
             # adds old traject again if k value did not increase
             else:
