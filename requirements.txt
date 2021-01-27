@@ -4,14 +4,11 @@ pip install networkx
 Matplotlib
 pip install matplotlib
 
-Bokeh
-pip install bokeh
-
-VSC extensions
-UMLet
-
 Pandas
 pip install pandas
+
+#VSC extensions
+UMLet
 
 
 

@@ -23,45 +23,42 @@ class Map():
     def __init__(self, stations):
         self.trajects = []
         self.stations = stations
-        pass
+
 
     def add_traject(self, traject):
         """
         Makes it possible to add a traject to the trajects list.
-        Expects an object as traject and returns a boolean True if succesfull.
+        Expects an object as traject.
         """
-        
         self.trajects.append(traject)
-        return True
+
 
     def add_traject_list(self, traject_list):
         """
         Makes it possible to add multiple trajects to a list.
-        Expects a list as traject_list and returns a boolean True if succesfull.
+        Expects a list as traject_list.
         """
-        
         self.trajects = traject_list
-        return True
     
+
     def get_trajects(self):
         """
         Makes it possible to retrieve a list of all traject objects.
         Returns this list.
         """
-        
         return self.trajects
+
 
     def visualise(self, name):
         """
-        Visualises all the given traject data.
+        Visualises all the given traject data into a graph.
         Expects a string as name.
         """
-
         # creates graph
         G = nx.Graph()
         nodes = []
 
-        # get coordinates and connections of each station
+        # gets coordinates and connections of each station
         for key in self.stations:
             station = self.stations[key]
             connections = station.get_connections()
@@ -84,15 +81,13 @@ class Map():
 
         plt.savefig(f'code/output/graphs/{name}.png', format="PNG")
         plt.show()
-        
-        return True
+
 
     def visualise_trajects(self, name):
         """
         Makes a visualisation of all the outputted trajects of the algorithm.
         Expects a string as name.
         """
-        
         # create list of colours for trajects
         colours = ['red', 'green', 'blue', 'yellow', 'purple', 'orange', 'black', 'grey', 'brown', 'pink',
             'olive', 'lightcoral', 'maroon', 'aqua', 'plum', 'skyblue', 'chocolate', 'lime', 'slategrey',
@@ -102,7 +97,7 @@ class Map():
         G = nx.DiGraph()
         nodes = []
 
-        # get coordinates and connections of each station
+        # gets coordinates and connections of each station
         for key in self.stations:
             station = self.stations[key]
 
@@ -141,20 +136,7 @@ class Map():
 
         # fig, ax = plt.subplots(figsize = (8,8))
         # nx.draw(G, pos, edge_color=colors, width=weights, with_labels=True, node_size=60, node_color='grey', font_size=4, font_weight='bold', connectionstyle='arc3, rad = 0.1', ax=ax)
-
-        # BBox = ((3.019, 7.398, 53.836, 50.680))
-
-        # background_map = plt.imread('docs/KaartNederland2-01.png')
-
-        # ax.tick_params(left=True, bottom=True, labelleft=True, labelbottom=True)
-        # ax.set_title('OpenStreetMap test')
-        # ax.set_xlim(BBox[0],BBox[1])
-        # ax.set_ylim(BBox[2],BBox[3])
-        # ax.imshow(background_map, zorder=0, extent = BBox, aspect= 'equal')
-
-        # pyplot.gca().invert_yaxis()
-        # # pyplot.gca().invert_xaxis()
-
+     
         # plt.savefig(f'code/output/graphs/{name}.png', format="PNG")
         # plt.show()
 
@@ -164,7 +146,7 @@ class Map():
         Saves the created visualisation of the trajects.
         Expects a string as name.
         """
-        
+
         # writes an output csv file with created trajects
         with open(f'code/output/csvs/{name}.csv', 'w', newline='') as file:
             writer = csv.writer(file)
@@ -184,7 +166,7 @@ class Map():
         Calculates the ratio stations covered by trajects to total amount stations as p.
         Returns integer or float as p.
         """
-       
+
         # creates list for already used stations
         covered_stations = []
 
@@ -205,7 +187,6 @@ class Map():
         Calculates the amount of trajects used.
         Returns an integer as T.
         """
-        
         T = len(self.trajects)
 
         return T
@@ -216,7 +197,6 @@ class Map():
         Calculates the amount of minutes used in all trajects.
         Returns an integer as Min.
         """
-
         Min = 0
 
         # sums total minutes of each traject runs 7 times
@@ -231,19 +211,18 @@ class Map():
         Calculates the quality score of all trajects the K value.
         Returns a float as K.
         """
-        
         p = self.get_p()
         T = self.get_T()
         Min = self.get_Min()
 
+        # formula for calculating K value
         K = p*10000 - (T*100 + Min)
 
         return K
 
+
     def delete_last_traject(self):
         """
         Removes last traject from trajects list.
-        Returns boolean True if succesfull.
         """
         self.trajects.pop()
-        return True

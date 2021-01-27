@@ -4,7 +4,7 @@
 from code.classes.traject import Traject
 from code.classes.map import Map
 from code.classes.station import Station
-from .random_1 import Random_1
+from .random import Random
 
 # libraries
 import copy
@@ -27,25 +27,22 @@ class Hillclimber():
         self.max_trajects = max_trajects
         self.max_time = max_time
 
-        pass
 
-    def mutate_traject(self):
+    def new_random_traject(self):
         """
-        Deletes traject when K value is higher in that case.
-        Creates a new traject object.
-        Returns the updates traject object.
+        Creates a random traject according to random algorithm
         """
-        
+
         # creates new random traject
-        random = Random_1(self.station_tree, self.max_trajects, self.max_time)
+        random = Random(self.station_tree, self.max_trajects, self.max_time)
         new_traject = random.make_random_traject()
 
         return new_traject
 
+
     def delete_traject(self):
         """
         Deletes whole traject if K value is higher in that case.
-        Returns Boolean True if succesfull.
         """
 
         # iterates over all trajects
@@ -62,20 +59,17 @@ class Hillclimber():
             # adds old traject again if k value did not increase
             else:
                 self.trajects.append(old_traject)
-                continue
-        return True
 
 
     def mutate(self):
         """
         Mutates a traject and checks if K value increases.
-        Returns True if succesfull.
         """
         # iterates over all trajects
         for i in range(len(self.trajects)-1):
             old_traject = self.trajects[i]
 
-            self.trajects[i] = self.mutate_traject()
+            self.trajects[i] = self.new_random_traject()
 
             new_solution = self.check_solution()
 
@@ -88,8 +82,7 @@ class Hillclimber():
             # adds old traject again if k value did not increase
             else:
                 self.trajects[i] = old_traject
-                continue
-        return True
+
 
     def check_solution(self):
         """
@@ -100,6 +93,7 @@ class Hillclimber():
         new_map.add_traject_list(self.trajects)
 
         return new_map.get_K()
+
 
     def run(self, iterations):
         """
@@ -119,5 +113,3 @@ class Hillclimber():
             new_map.add_traject(traject)
 
         return new_map
-
-pass

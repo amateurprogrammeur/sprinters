@@ -9,7 +9,6 @@ class Traject():
         # stations = [ station_object ]
         self.stations = []
         self.total_minutes = 0
-        pass
 
 
     def add_station(self, station, time):
@@ -18,9 +17,7 @@ class Traject():
         Updates the total amount of minutes in a traject object.
         Expects a station object and an integer as time.
         """
-
         self.stations.append(station)
-
         self.total_minutes += time
 
 
@@ -28,7 +25,6 @@ class Traject():
         """
         Returns a list of station object as a traject object.
         """
-
         return self.stations
 
 
@@ -38,7 +34,6 @@ class Traject():
         Expects an object as station and an integer as time.
         Returns boolean True if succesfull, else False.
         """
-
         if station in self.stations:
             self.stations.remove(station)
             self.total_minutes -= time
@@ -52,7 +47,6 @@ class Traject():
         Expects an object as station.
         Returns boolean True if traject object has station, else False.
         """
-
         if station in self.stations:
             return True
         return False
@@ -63,7 +57,6 @@ class Traject():
         Retrieves total amount of minutes of traject object.
         Returns itself.
         """
-        
         return self.total_minutes
 
     
@@ -72,13 +65,11 @@ class Traject():
         Retrieves last added station to the traject.
         Returns itself.
         """
-
         return self.stations[-1]
 
     def __repr__(self):
         """
-        Representates a station object when printed.
-        Returns string as name of the station object.
+        Represents a traject object when printed.
+        Returns string of first station of traject
         """
-        
-        return f"TR: {self.stations[0].name}"
+        return f"TR: {self.stations[0].name}<>{self.stations[-1].name}"

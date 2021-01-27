@@ -16,9 +16,12 @@ class Chance():
         self.max_trajects = max_trajects
         self.max_time = max_time
 
-        pass
 
     def deadend_stations(self):
+        """
+        Makes list of all deadend stations out stations list.
+        """
+
         deadend_stations = []
 
         for station in self.stations:
@@ -34,6 +37,7 @@ class Chance():
         """
         Creates a traject object according to our chance algorithm and returns it.
         """
+
         deadend_stations = self.deadend_stations()
         connection_chance_list = []
         visited = []
@@ -83,6 +87,7 @@ class Chance():
                     else:
                         continue
                 else:
+                    
                     # add connection with station and time as traject to new_traject
                     time = connections[station]
                     last_station = station
@@ -108,13 +113,8 @@ class Chance():
         Runs the chance algorithm.
         Returns a map as visualisation.
         """
-        
-        new_map = Map(self.stations)
 
-        # adds new_traject to new_map untill maximum is reached
-        # for i in range(self.max_trajects):
-        #     new_traject = self.make_chance_traject()
-        #     new_map.add_traject(new_traject)
+        new_map = Map(self.stations)
 
         trajects = self.make_chance_trajects()
         new_map.add_traject_list(trajects)

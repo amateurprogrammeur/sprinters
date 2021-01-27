@@ -4,7 +4,7 @@
 from code.classes.traject import Traject
 from code.classes.map import Map
 from code.classes.station import Station
-from .random_1 import Random_1
+from .random import Random
 
 # libraries
 import copy
@@ -26,195 +26,137 @@ class Sim_Ann():
 
         # list [ traject_object ]
         self.trajects = initial_map.get_trajects()
-        self.solution = int(initial_map.get_K())
+
+        self.old_solution = int(initial_map.get_K())
 
         self.max_trajects = max_trajects
         self.max_time = max_time
 
-        self.data_list = []
-        self.chances_list = []
-
         self.highest_map = Map(self.station_tree)
         self.highest_solution = 0
-        pass
 
-    def mutate_traject(self):
+
+    def new_random_traject(self):
         """
-        Deletes traject when K value is higher in that case.
-        Creates a new traject object.
-        Returns the updates traject object.
+        Creates a new traject object according to random_1 algorithm
+        Returns traject object.
         """
         
         # creates new random traject
-        random = Random_1(self.station_tree, self.max_trajects, self.max_time)
+        random = Random(self.station_tree, self.max_trajects, self.max_time)
         new_traject = random.make_random_traject()
 
         return new_traject
 
     def delete_traject(self, temperature):
         """
-        Deletes whole traject if K value is higher in new solution
-        Returns Boolean True if succesfull.
+        Deletes all trajects one by one
+        Checks solution and accepts change or not
         """
-
         # iterates over all trajects
         for i in range(len(self.trajects)-1):
+            # deletes a traject
             old_traject = self.trajects.pop(0)
 
-            new_solution = self.check_solution()
+            # checks if change should be accepted and reverts when needed
+            accept = self.check_solution(temperature)
+            if not accept:
+                self.trajects.append(old_traject)
 
-            if new_solution > self.solution:
-                self.solution = new_solution
-            else:
-                chance =  np.exp(-(self.solution - new_solution) / temperature)
-                # print(f"delete_chance: {chance}, old_solution: {self.solution}, new_solution {new_solution}, temperature: {temperature}")
-
-                if random.random() < chance:
-                    # print(f"delete_chance: {chance}, old_solution: {self.solution}, new_solution {new_solution}")
-                    self.solution = new_solution
-                    # print(f"Simulated Annealing: new_K {new_solution}")
-                
-                # adds old traject again if k value did not increase
-                else:
-                    self.trajects.append(old_traject)
-        return True
 
     def add_traject(self, temperature):
-        trajects_amount = len(self.trajects)
+        """
+        Adds trajects
+        Checks solution and accepts change or not
+        """
+        trajects_amount = self.max_trajects - len(self.trajects)
         
-        for i in range(trajects_amount):
-            if trajects_amount < 20:
-                new_traject = self.mutate_traject()
-                self.trajects.append(new_traject)
+        # makes trajects until total equals max trajects
+        for i in range(trajects_amount - 1):
 
-                new_solution = self.check_solution()
+            # creates new traject and adds to trajects list
+            new_traject = self.new_random_traject()
+            self.trajects.append(new_traject)
 
-                if new_solution > self.solution:
-                    self.solution = new_solution
-                else:
-                    chance =  np.exp(-(self.solution - new_solution) / temperature)
-                    if random.random() < chance:
-                        # print(f"add_chance: {chance}, old_solution: {self.solution}, new_solution {new_solution}")
-                        self.solution = new_solution
-                        # print(f"Simulated Annealing: new_K {new_solution}")
-                    
-                    # adds old traject again if k value did not increase
-                    else:
-                        self.trajects.pop()
-
-        return True
+            # checks if change should be accepted and reverts when needed
+            accept = self.check_solution(temperature)
+            if not accept:
+                    self.trajects.pop()
 
 
     def mutate(self, temperature):
         """
-        Mutates a traject and checks if K value increases.
-        Returns True if succesfull.
+        Mutates all trajects one by one
+        Checks solution and accepts change or not
         """
-
         # iterates over all trajects
-        for i in range(len(self.trajects)-1):
+        for i in range(len(self.trajects) - 1):
+            # saves original traject
             old_traject = self.trajects[i]
 
-            self.trajects[i] = self.mutate_traject()
+            # mutates traject
+            self.trajects[i] = self.new_random_traject()
 
-            new_solution = self.check_solution()
-            # print(f"old_solution: {self.solution}, new_solution {new_solution}")
+            # checks if change should be accepted and reverts when needed
+            accept = self.check_solution(temperature)
+            if accept == False:
+                self.trajects[i] = old_traject
 
 
-            # if solution is better: always accept
-            # if solution is worse: calculate chance to accept or decline
-
-            if new_solution > self.solution:
-                self.solution = new_solution
-            else:
-                # checks and shows highest k value
-                chance =  np.exp(-(self.solution - new_solution) / temperature)
-                # print(f"mutate_chance: {chance}, old_solution: {self.solution}, new_solution {new_solution}, temperature {temperature}")
-
-                # self.chances_list.append(chance)
-                # print(chance)
-                if random.random() < chance:
-                    # print(f"mutate_chance: {chance}, old_solution: {self.solution}, new_solution {new_solution}")
-                    self.solution = new_solution
-
-                # adds old traject again if k value did not increase
-                else:
-                    self.trajects[i] = old_traject
-
-            # print(f"Simulated Annealing: new_K {new_solution}")
-
-            # self.data_list.append(new_solution)
-        return True
-
-    def check_solution(self):
+    def check_solution(self, temperature):
         """
         Checks if K value is higher with new traject list.
-        Returns the map with the highest K value.
+        Returns Boolean True if chance is met.
         """
+        
+        # creates empty map, adds traject list to map, calculates K value
         new_map = Map(self.station_tree)
         new_map.add_traject_list(self.trajects)
-        new_K = new_map.get_K()
+        new_solution = new_map.get_K()
 
-        if new_K > self.highest_solution:
+        # saves the highest solution
+        if new_solution > self.highest_solution:
             self.highest_map = copy.deepcopy(new_map)
-            self.highest_solution = new_K
+            self.highest_solution = new_solution
             print(f"Highest_K: {self.highest_solution}")
 
-        return new_K
+        # accept change if solution is higher
+        if new_solution > self.old_solution:
+            self.old_solution = new_solution
+            return True
+
+        # calculate chance to accept wrong solution
+        chance =  np.exp( - (self.old_solution - new_solution) / temperature)
+
+        # returns true if chance is met, false if not
+        if random.random() < chance:
+            self.old_solution = new_solution
+            return True
+
+        return False
+
 
     def run(self, iterations):
         """
         Runs the Hill Climber algorithm as many times as the user wants.
         Expects an integer as iterations.
-        Returns a map as visualisation.
+        Returns a map with highest K value as visualisation.
         """
 
         max_temperature = 250
 
         # runs simulated annealing by mutating trajects if needed
         for i in range(iterations):
-            # straight line
-            temperature = max_temperature - (( max_temperature / iterations) * i)
-            # print(temperature)
-            # temperature = temperature * 0.95
 
+            # calculates temperature
+            temperature = max_temperature - (( max_temperature / iterations) * i)
+
+            # does all mutations with temperature in one iteration
             self.delete_traject(temperature)
             self.mutate(temperature)
             self.add_traject(temperature)
 
-        # adds traject to new map visualisation
-        # new_map = Map(self.station_tree)
-        # new_map.add_traject_list(self.trajects)
-
-        self.check_solution()
-
-        print(f"{self.highest_map.get_trajects()} Final K: {self.highest_map.get_K()}")
-
-        # for traject in self.trajects:
-        #     new_map.add_traject(traject)
-
-        # x = list(range(0,iterations))
-        # y = self.data_list
-
-        # plt.plot(x, y, 'o', color='black')
-        # plt.show
-
-        # x = list(range(0,iterations))
-        # y = self.chances_list
-
-        # plt.plot(x, y, 'o', color='black')
-        # plt.show
+        # check solution is called one last time in case mutations are made after check solution is called in previous functions
+        self.check_solution(temperature)
 
         return self.highest_map
-
-#Herhaal:
-    #Kies een random start state
-    #Kies start waarde
-    #Herhaal N iteraties: 
-        #Doe een kleine random aanpassing
-        #Als random( ) > kans(oud, nieuw, waarde): 
-            #Maak de aanpassing ongedaan
-        #Verlaag waarde
-
-
-# Kans 2^(oude score - nieuwe score)/temperatuur

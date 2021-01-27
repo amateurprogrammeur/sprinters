@@ -1,4 +1,4 @@
-<diagram program="umletino" version="14.4.0-SNAPSHOT"><zoom_level>10</zoom_level><help_text>Space for diagram notes</help_text><element><id>Relation</id><coordinates><x>90</x><y>180</y><w>30</w><h>200</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;180</additional_attributes></element><element><id>UMLClass</id><coordinates><x>0</x><y>360</y><w>210</w><h>190</h></coordinates><panel_attributes>Class Station
+<diagram program="umletino" version="14.4.0-SNAPSHOT"><zoom_level>10</zoom_level><help_text>Space for diagram notes</help_text><element><id>Relation</id><coordinates><x>123</x><y>197</y><w>30</w><h>200</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;180</additional_attributes></element><element><id>UMLClass</id><coordinates><x>33</x><y>377</y><w>210</w><h>190</h></coordinates><panel_attributes>Class Station
 --
 -Name: string
 -Connections: {Connection : time}
@@ -9,8 +9,9 @@ get_connections()
 has_connection(connection)
 add_coordinates(x, y)
 get_coordinates()
+remove_connection()
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>0</x><y>0</y><w>210</w><h>190</h></coordinates><panel_attributes>Class Traject
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>33</x><y>17</y><w>210</w><h>190</h></coordinates><panel_attributes>Class Traject
 --
 Stations: [Station]
 Total_minutes: int
@@ -22,7 +23,7 @@ has_station(station)
 get_time()
 get_last_station()
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>310</x><y>30</y><w>210</w><h>200</h></coordinates><panel_attributes>Class Map
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>343</x><y>47</y><w>210</w><h>200</h></coordinates><panel_attributes>Class Map
 --
 Trajects: [Traject]
 --
@@ -36,12 +37,12 @@ visualise_trajects()
 get_p()
 get_T()
 get_MIN()
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>200</x><y>0</y><w>130</w><h>60</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>110;40;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>250</x><y>300</y><w>210</w><h>190</h></coordinates><panel_attributes>Class Prims
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>233</x><y>17</y><w>130</w><h>60</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>110;40;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>283</x><y>317</y><w>210</w><h>190</h></coordinates><panel_attributes>Class Prims
 --
 Stations: Station()
 Prims_tree: {}
 --
-make_tree()</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>470</x><y>300</y><w>210</w><h>190</h></coordinates><panel_attributes>Class Hillclimber
+make_tree()</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>503</x><y>317</y><w>210</w><h>190</h></coordinates><panel_attributes>Class Hillclimber
 --
 station_tree = stations
 trajects = initial_map.get_trajects
@@ -54,7 +55,7 @@ max_time = max_time
 -mutate()
 -check_solution()
 -run(iterations)
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>690</x><y>300</y><w>210</w><h>190</h></coordinates><panel_attributes>Class Random_1
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>723</x><y>317</y><w>210</w><h>190</h></coordinates><panel_attributes>Class Random_1
 --
 stations = stations
 max_trajects = max_trajects
@@ -64,20 +65,7 @@ make_random_traject()
 run()
 
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>350</x><y>260</y><w>460</w><h>30</h></coordinates><panel_attributes>Algorithms</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>474</x><y>503</y><w>210</w><h>190</h></coordinates><panel_attributes>Class Depth-first
---
-station_tree = stations {}
-max_trajects = max_trajects
-max_time = max_time
---
-deadend_stations()
-run()
-depthfirst()</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>244</x><y>503</y><w>210</w><h>190</h></coordinates><panel_attributes>Class Kruskals
---
-Stations: Station()
-Kruskals_tree: {}
---
-make_tree()</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>692</x><y>503</y><w>210</w><h>260</h></coordinates><panel_attributes>Class Simmulated Annealing
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>383</x><y>277</y><w>460</w><h>30</h></coordinates><panel_attributes>Algorithms</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>695</x><y>530</y><w>210</w><h>260</h></coordinates><panel_attributes>Class Simmulated Annealing
 --
 station_tree = stations
 trajects = initial_map.get_trajects
@@ -95,7 +83,7 @@ highest_solution = 0
 -add_traject()
 -check_solution()
 -run(iterations)
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>360</x><y>700</y><w>210</w><h>190</h></coordinates><panel_attributes>Class Chance
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>383</x><y>537</y><w>210</w><h>190</h></coordinates><panel_attributes>Class Chance
 --
 stations = stations
 max_trajects = max_trajects

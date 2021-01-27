@@ -1,4 +1,8 @@
+#########################################################
 # Celine Diks, Chris Bernsen & Julia Ham
+#
+# Tried algorithm kruskals but not succeeded. 
+######################################################### 
 
 # classes
 from code.classes.traject import Traject
@@ -14,6 +18,7 @@ class Kruskals():
     """
     Class for Kruskals algorithm.
     """
+
     def __init__(self, stations):
         
         # dict { station_name : station_object }
@@ -25,6 +30,7 @@ class Kruskals():
         Creates a tree with station objects to choose from.
         Returns a dictionary as the tree.
         """
+
         # list [ station_name ]
         visited = []
 

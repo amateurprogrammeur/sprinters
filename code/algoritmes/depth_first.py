@@ -1,4 +1,9 @@
+#########################################################
 # Celine Diks, Chris Bernsen & Julia Ham
+#
+# Tried algorithm depth first but not succeeded. 
+######################################################### 
+
 
 # classes
 from code.classes.traject import Traject
@@ -55,6 +60,7 @@ class DepthFirst():
         pass
 
     def deadend_stations(self):
+
         deadend_stations = []
 
         for station in self.station_tree:
@@ -92,6 +98,7 @@ class DepthFirst():
                             print(f"Connections: {connections}")
                             print(f"last_station: {child_traject.get_last_station()}")
                             for connection in connections:
+                                
                                 # if connection.name not in visited:
                                 time = connections[connection]
 
@@ -137,5 +144,3 @@ class DepthFirst():
 
         test_map = self.depthfirst(depth, iterations)
         return test_map
-
-pass
