@@ -130,11 +130,11 @@ As said in the explanation from the algorithms above, we use a couple of algorit
         - Holland (HL)
         - Netherlands (NL)
         - Advanced (AD)
-        If Advanced is chosen, continues at 3.
+        If Advanced is chosen, continues at iii.
 
     ***NL & HL***
     
-    2. Asks if Prims needs to be applied, (y)es or (n)o. Continues at 5.
+    2. Asks if Prims needs to be applied, (y)es or (n)o. Continues at v.
     
     ***AD***
     
