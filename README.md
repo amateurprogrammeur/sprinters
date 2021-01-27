@@ -133,9 +133,11 @@ As said in the explanation from the algorithms above, we use a couple of algorit
         If Advanced is chosen, continues at 3.
 
     ***NL & HL***
+    
     2. Asks if Prims needs to be applied, (y)es or (n)o. Continues at 5.
     
     ***AD***
+    
     3. Asks input for (station name) to remove that station object or (connections) for three random connections to be removed.
 
     4. Choose first algorithm to run:
